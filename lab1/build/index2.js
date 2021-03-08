@@ -33,7 +33,6 @@ var StatsApp = /** @class */ (function () {
         var min = Math.min(data1, data2, data3, data4);
         var max = Math.max(data1, data2, data3, data4);
         this.showStats(sum, avg, min, max);
-        console.log("działa");
     };
     StatsApp.prototype.showStats = function (sum, avg, min, max) {
         this.dataSumaInput.value = sum.toString();
@@ -43,3 +42,4 @@ var StatsApp = /** @class */ (function () {
     };
     return StatsApp;
 }());
+var statApp = new StatsApp();

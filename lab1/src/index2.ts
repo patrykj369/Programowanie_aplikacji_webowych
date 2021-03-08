@@ -58,3 +58,4 @@ class StatsApp{
     }
 }
 
+const statApp = new StatsApp();
