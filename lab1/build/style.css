@@ -1,0 +1,22 @@
+.input-data{
+    display: flex;
+    margin-top: 5px;
+    text-align: center;
+    justify-content: center;
+    border-color: black;
+    
+}
+
+.column{
+    flex:content;
+    margin: 10px;
+}
+
+.full{
+    background-color: aqua;
+    border-color: black;
+    border-style: double;
+    width: 50%;
+    margin: auto;
+    padding: 10px;
+}
