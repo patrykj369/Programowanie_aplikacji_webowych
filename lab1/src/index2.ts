@@ -1,5 +1,6 @@
 class StatsApp{
 
+    data0Input: HTMLInputElement;
     data1Input: HTMLInputElement;
     data2Input: HTMLInputElement;
     data3Input: HTMLInputElement;
@@ -8,6 +9,8 @@ class StatsApp{
     dataAvgInput: HTMLInputElement;
     dataMinInput: HTMLInputElement;
     dataMaxInput: HTMLInputElement;
+    number: HTMLInputElement;
+    container: HTMLElement;
 
     constructor(){
         this.startApp();
@@ -18,7 +21,26 @@ class StatsApp{
         this.watchInputValues();
     }
 
+    addInput(){
+          while(this.container?.hasChildNodes()){
+              this.container?.removeChild(this.container?.lastChild);
+          }
+        const tmp = +this.number.value;
+        for(let i=0; i<tmp; i++ ){
+            const p = document.createTextNode("Wartość: ");
+            this.container?.appendChild(p);
+            var input = document.createElement("input");
+            input.type = "text";
+            input.id = "input"+(i+1);
+            this.container?.appendChild(input);
+            this.container?.appendChild(document.createElement("br"));
+            // this.container?.appendChild(document.createElement("br"));
+        }
+    }
+
     getInputs(){
+        this.number = document.querySelector('#input0');
+        this.container = document.getElementById("container");
         this.data1Input = document.querySelector('#input1');
         this.data2Input = document.querySelector('#input2');
         this.data3Input = document.querySelector('#input3');
@@ -30,11 +52,11 @@ class StatsApp{
     }
 
     watchInputValues(){
-        this.data1Input.addEventListener('input', () => this.computeData());
-        this.data2Input.addEventListener('input', () => this.computeData());
-        this.data3Input.addEventListener('input', () => this.computeData());
-        this.data4Input.addEventListener('input', () => this.computeData());
-
+        this.data1Input?.addEventListener('input', () => this.computeData());
+        this.data2Input?.addEventListener('input', () => this.computeData());
+        this.data3Input?.addEventListener('input', () => this.computeData());
+        this.data4Input?.addEventListener('input', () => this.computeData());
+        this.number.addEventListener('input', () => this.addInput());
     }
 
     computeData(){
