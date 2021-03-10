@@ -21,7 +21,10 @@ var StatsApp = /** @class */ (function () {
             (_e = this.container) === null || _e === void 0 ? void 0 : _e.appendChild(input);
             (_f = this.container) === null || _f === void 0 ? void 0 : _f.appendChild(document.createElement("br"));
             // this.container?.appendChild(document.createElement("br"));
+            //this.getInputs();
         }
+        this.getInputs();
+        this.watchInputValues();
     };
     StatsApp.prototype.getInputs = function () {
         this.number = document.querySelector('#input0');

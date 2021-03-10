@@ -34,8 +34,10 @@ class StatsApp{
             input.id = "input"+(i+1);
             this.container?.appendChild(input);
             this.container?.appendChild(document.createElement("br"));
-            // this.container?.appendChild(document.createElement("br"));
         }
+
+        this.getInputs();
+        this.watchInputValues();
     }
 
     getInputs(){
