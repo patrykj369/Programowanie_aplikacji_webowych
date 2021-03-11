@@ -34,12 +34,34 @@ class StatsApp{
             const tmp = +this.number.value;
             
             for(let i=0; i<tmp; i++ ){
-                const p = document.createTextNode("Wartość: ");
+                const p = document.createElement("label");
+                p.textContent="Wartość: ";
+                p.id = "label"+(i+1);
                 this.container?.appendChild(p);
+
                 var input = document.createElement("input");
                 input.type = "text";
                 input.id = "input"+(i+1);
                 this.container?.appendChild(input);
+
+                var button = document.createElement("button");
+                button.textContent = "DELETE";
+                button.id = (i+1).toString();
+
+                button.addEventListener('click',function(event){
+                    var d = "input"+(i+1);
+                    var l = "label"+(i+1);
+                    var b = (i+1).toString();
+                    var dd = document.getElementById(d);
+                    var ll = document.getElementById(l);
+                    var bb = document.getElementById(b);
+                    var ddd = document.getElementById("container");
+                    ddd.removeChild(dd);
+                    ddd.removeChild(ll);
+                    ddd.removeChild(bb);
+                
+                });
+                this.container?.appendChild(button);
                 this.container?.appendChild(document.createElement("br"));
             }
             
@@ -79,13 +101,13 @@ class StatsApp{
         let sum:number = 0;
         for(let i=0; i<+this.number.value; i++){
             dataArray2[i]=+this.dataArray[i].value;
-            sum += dataArray2[i];
-
-            const avg = sum/+this.number.value;
-            const min = Math.min.apply(Math, dataArray2);
-            const max = Math.max.apply(Math, dataArray2);
-            this.showStats(sum, avg, min, max);
-        }      
+            sum += dataArray2[i]; 
+                           
+        }   
+        const avg = sum/+this.number.value;  
+        const max = Math.max.apply(Math, dataArray2);   
+        const min = Math.min.apply(Math, dataArray2);
+        this.showStats(sum, avg, min, max);
     }
 
     showStats(sum: number, avg: number, min: number, max: number){
