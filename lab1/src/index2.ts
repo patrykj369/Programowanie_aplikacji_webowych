@@ -48,7 +48,7 @@ class StatsApp{
                 button.textContent = "DELETE";
                 button.id = (i+1).toString();
 
-                button.addEventListener('click',function(event){
+                button.addEventListener('click',function(){
                     var d = "input"+(i+1);
                     var l = "label"+(i+1);
                     var b = (i+1).toString();
@@ -58,8 +58,7 @@ class StatsApp{
                     var ddd = document.getElementById("container");
                     ddd.removeChild(dd);
                     ddd.removeChild(ll);
-                    ddd.removeChild(bb);
-                
+                    ddd.removeChild(bb);                   
                 });
                 this.container?.appendChild(button);
                 this.container?.appendChild(document.createElement("br"));

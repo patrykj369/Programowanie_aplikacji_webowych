@@ -33,7 +33,7 @@ var StatsApp = /** @class */ (function () {
             button = document.createElement("button");
             button.textContent = "DELETE";
             button.id = (i + 1).toString();
-            button.addEventListener('click', function (event) {
+            button.addEventListener('click', function () {
                 var d = "input" + (i + 1);
                 var l = "label" + (i + 1);
                 var b = (i + 1).toString();
