@@ -1,10 +1,7 @@
 class StatsApp{
 
     data0Input: HTMLInputElement;
-    data1Input: HTMLInputElement;
-    data2Input: HTMLInputElement;
-    data3Input: HTMLInputElement;
-    data4Input: HTMLInputElement;
+    dataArray:HTMLInputElement[] = [];
     dataSumaInput: HTMLInputElement;
     dataAvgInput: HTMLInputElement;
     dataMinInput: HTMLInputElement;
@@ -17,7 +14,8 @@ class StatsApp{
     }
  
     startApp(){
-        this.getInputs();
+        this.number = document.querySelector('#input0');
+        this.container = document.getElementById("container");
         this.watchInputValues();
     }
 
@@ -25,17 +23,18 @@ class StatsApp{
           while(this.container?.hasChildNodes()){
               this.container?.removeChild(this.container?.lastChild);
           }
-        const tmp = +this.number.value;
-        for(let i=0; i<tmp; i++ ){
-            const p = document.createTextNode("Wartość: ");
-            this.container?.appendChild(p);
-            var input = document.createElement("input");
-            input.type = "text";
-            input.id = "input"+(i+1);
-            this.container?.appendChild(input);
-            this.container?.appendChild(document.createElement("br"));
-        }
-
+            const tmp = +this.number.value;
+            
+            for(let i=0; i<tmp; i++ ){
+                const p = document.createTextNode("Wartość: ");
+                this.container?.appendChild(p);
+                var input = document.createElement("input");
+                input.type = "text";
+                input.id = "input"+(i+1);
+                this.container?.appendChild(input);
+                this.container?.appendChild(document.createElement("br"));
+            }
+            
         this.getInputs();
         this.watchInputValues();
     }
@@ -43,10 +42,14 @@ class StatsApp{
     getInputs(){
         this.number = document.querySelector('#input0');
         this.container = document.getElementById("container");
-        this.data1Input = document.querySelector('#input1');
-        this.data2Input = document.querySelector('#input2');
-        this.data3Input = document.querySelector('#input3');
-        this.data4Input = document.querySelector('#input4');
+
+        if(this.container.hasChildNodes()){
+            for(let i=0; i<+this.number.value; i++){
+                const tmp ="#input" + (i+1);
+                this.dataArray.push(document.querySelector(tmp));
+            }
+        }
+        
         this.dataSumaInput = document.querySelector('#inputSum');
         this.dataAvgInput = document.querySelector('#inputAvg');
         this.dataMinInput = document.querySelector('#inputMin');
@@ -54,24 +57,27 @@ class StatsApp{
     }
 
     watchInputValues(){
-        this.data1Input?.addEventListener('input', () => this.computeData());
-        this.data2Input?.addEventListener('input', () => this.computeData());
-        this.data3Input?.addEventListener('input', () => this.computeData());
-        this.data4Input?.addEventListener('input', () => this.computeData());
         this.number.addEventListener('input', () => this.addInput());
+        if(this.container.hasChildNodes()){
+            for(var i=0; i<+this.number.value; i++){
+                this.dataArray[i]?.addEventListener('input', () => this.computeData());
+            }
+        }
+        
     }
 
     computeData(){
-        const data1 = +this.data1Input.value;
-        const data2 = +this.data2Input.value;
-        const data3 = +this.data3Input.value;
-        const data4 = +this.data4Input.value;
-        const sum = data1 + data2 + data3 + data4;
-        const avg = sum/4;
-        const min = Math.min(data1, data2, data3, data4);
-        const max = Math.max(data1, data2, data3, data4);
-        this.showStats(sum, avg, min, max);
-        
+        var dataArray2:number[]=[];
+        let sum:number = 0;
+        for(let i=0; i<+this.number.value; i++){
+            dataArray2[i]=+this.dataArray[i].value;
+            sum =+ dataArray2[i];
+
+            const avg = sum/+this.number.value;
+            const min = Math.min.apply(Math, dataArray2);
+            const max = Math.max.apply(Math, dataArray2);
+            this.showStats(sum, avg, min, max);
+        }      
     }
 
     showStats(sum: number, avg: number, min: number, max: number){
