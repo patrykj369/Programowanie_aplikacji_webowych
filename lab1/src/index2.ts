@@ -14,6 +14,7 @@ class StatsApp{
     }
  
     startApp(){
+        this.getInputs();
         this.number = document.querySelector('#input0');
         this.container = document.getElementById("container");
         this.watchInputValues();
@@ -22,6 +23,13 @@ class StatsApp{
     addInput(){
           while(this.container?.hasChildNodes()){
               this.container?.removeChild(this.container?.lastChild);
+              this.dataArray=[];
+              const tmp:string = "0";
+              this.dataSumaInput.value=tmp;
+              this.dataAvgInput.value=tmp;
+              this.dataMaxInput.value=tmp;
+              this.dataMinInput.value=tmp;
+
           }
             const tmp = +this.number.value;
             
@@ -71,7 +79,7 @@ class StatsApp{
         let sum:number = 0;
         for(let i=0; i<+this.number.value; i++){
             dataArray2[i]=+this.dataArray[i].value;
-            sum =+ dataArray2[i];
+            sum += dataArray2[i];
 
             const avg = sum/+this.number.value;
             const min = Math.min.apply(Math, dataArray2);

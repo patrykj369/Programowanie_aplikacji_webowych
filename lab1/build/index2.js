@@ -4,6 +4,7 @@ var StatsApp = /** @class */ (function () {
         this.startApp();
     }
     StatsApp.prototype.startApp = function () {
+        this.getInputs();
         this.number = document.querySelector('#input0');
         this.container = document.getElementById("container");
         this.watchInputValues();
@@ -12,6 +13,12 @@ var StatsApp = /** @class */ (function () {
         var _a, _b, _c, _d, _e, _f;
         while ((_a = this.container) === null || _a === void 0 ? void 0 : _a.hasChildNodes()) {
             (_b = this.container) === null || _b === void 0 ? void 0 : _b.removeChild((_c = this.container) === null || _c === void 0 ? void 0 : _c.lastChild);
+            this.dataArray = [];
+            var tmp_1 = "0";
+            this.dataSumaInput.value = tmp_1;
+            this.dataAvgInput.value = tmp_1;
+            this.dataMaxInput.value = tmp_1;
+            this.dataMinInput.value = tmp_1;
         }
         var tmp = +this.number.value;
         for (var i = 0; i < tmp; i++) {
@@ -55,7 +62,7 @@ var StatsApp = /** @class */ (function () {
         var sum = 0;
         for (var i = 0; i < +this.number.value; i++) {
             dataArray2[i] = +this.dataArray[i].value;
-            sum = +dataArray2[i];
+            sum += dataArray2[i];
             var avg = sum / +this.number.value;
             var min = Math.min.apply(Math, dataArray2);
             var max = Math.max.apply(Math, dataArray2);
