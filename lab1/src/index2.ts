@@ -1,7 +1,7 @@
 class StatsApp{
 
     data0Input: HTMLInputElement;
-    dataArray:HTMLInputElement[] = [];
+    dataArray: HTMLInputElement[] = [];
     dataSumaInput: HTMLInputElement;
     dataAvgInput: HTMLInputElement;
     dataMinInput: HTMLInputElement;
@@ -42,26 +42,41 @@ class StatsApp{
                 var input = document.createElement("input");
                 input.type = "text";
                 input.id = "input"+(i+1);
+                input.className = "input";
                 this.container?.appendChild(input);
 
                 var button = document.createElement("button");
                 button.textContent = "DELETE";
                 button.id = (i+1).toString();
 
-                button.addEventListener('click',function(){
-                    var d = "input"+(i+1);
-                    var l = "label"+(i+1);
-                    var b = (i+1).toString();
-                    var dd = document.getElementById(d);
-                    var ll = document.getElementById(l);
-                    var bb = document.getElementById(b);
-                    var ddd = document.getElementById("container");
-                    ddd.removeChild(dd);
-                    ddd.removeChild(ll);
-                    ddd.removeChild(bb);                   
+                button.addEventListener('click',()=>{
+                    if(this.container.childElementCount>4){
+                        var d = document.getElementById("input"+(i+1));
+                        var l = document.getElementById("label"+(i+1));
+                        var b = document.getElementById((i+1).toString());
+                        var dd = document.getElementById("container");
+                        dd.removeChild(d);
+                        dd.removeChild(l);
+                        dd.removeChild(b);
+
+                        const val = +(this.number.value)-1;
+                        this.number.value = val.toString();
+                        var brbr = document.getElementById("br"+(i+1));
+                        dd.removeChild(brbr);
+
+                        this.dataArray.splice(i,1);
+                        this.computeData();
+                    }else{
+                        alert("Musi występowac choć jeden input");
+                    }
+                        
+                        
                 });
                 this.container?.appendChild(button);
-                this.container?.appendChild(document.createElement("br"));
+
+                var br = document.createElement("br")
+                br.id = "br"+(i+1);
+                this.container?.appendChild(br);
             }
             
         this.getInputs();
@@ -75,7 +90,9 @@ class StatsApp{
         if(this.container.hasChildNodes()){
             for(let i=0; i<+this.number.value; i++){
                 const tmp ="#input" + (i+1);
-                this.dataArray.push(document.querySelector(tmp));
+                
+                this.dataArray.push(document.querySelector(tmp));    
+                 
             }
         }
         
@@ -89,7 +106,9 @@ class StatsApp{
         this.number.addEventListener('input', () => this.addInput());
         if(this.container.hasChildNodes()){
             for(var i=0; i<+this.number.value; i++){
+                
                 this.dataArray[i]?.addEventListener('input', () => this.computeData());
+                
             }
         }
         
@@ -110,10 +129,45 @@ class StatsApp{
     }
 
     showStats(sum: number, avg: number, min: number, max: number){
-        this.dataSumaInput.value = sum.toString();
-        this.dataAvgInput.value = avg.toString();
-        this.dataMinInput.value = min.toString();
-        this.dataMaxInput.value = max.toString();
+        if(!(isNaN(sum) || isNaN(avg) || isNaN(min) || isNaN(max))){
+            var element = document.getElementById('hid');
+            var element1 = document.getElementById('suMa');
+            var element2 = document.getElementById('sreDnia');
+            var element3 = document.getElementById('mIn');
+            var element4 = document.getElementById('mAx');
+
+            var elementPoprawne = document.getElementById('poprawne');
+            elementPoprawne.style.visibility = "hidden";
+
+            element.style.visibility = "visible";
+            element1.style.visibility = "visible";
+            element2.style.visibility = "visible";
+            element3.style.visibility = "visible";
+            element4.style.visibility = "visible";
+            element.style.visibility = "visible";
+
+            this.dataSumaInput.value = sum.toString();
+            this.dataAvgInput.value = avg.toString();
+            this.dataMinInput.value = min.toString();
+            this.dataMaxInput.value = max.toString();
+            
+        }else{
+            var element = document.getElementById('hid');
+            var element1 = document.getElementById('suMa');
+            var element2 = document.getElementById('sreDnia');
+            var element3 = document.getElementById('mIn');
+            var element4 = document.getElementById('mAx');
+
+            var elementPoprawne = document.getElementById('poprawne');
+            elementPoprawne.style.visibility = "visible";
+
+            element.style.visibility = "hidden";
+            element1.style.visibility = "hidden";
+            element2.style.visibility = "hidden";
+            element3.style.visibility = "hidden";
+            element4.style.visibility = "hidden";
+        }
+        
     }
 }
 
