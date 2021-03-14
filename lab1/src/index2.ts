@@ -55,10 +55,11 @@ class StatsApp{
                         var l = document.getElementById("label"+(i+1));
                         var b = document.getElementById((i+1).toString());
                         var dd = document.getElementById("container");
+                        
                         dd.removeChild(d);
                         dd.removeChild(l);
                         dd.removeChild(b);
-
+                        
                         const val = +(this.number.value)-1;
                         this.number.value = val.toString();
                         var brbr = document.getElementById("br"+(i+1));
