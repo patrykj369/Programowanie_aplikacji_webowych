@@ -4,11 +4,35 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <title>DrumKIT</title>
 </head>
 <body>
-    <audio src="sounds/clap.wav" controls data-sound="clap"></audio>
-    <button id="playChannel1">Play Channel 1</button>
+    <audio src="sounds/clap.wav" data-sound="clap"></audio>
+    <audio src="sounds/boom.wav" data-sound="boom"></audio>
+    <audio src="sounds/hihat.wav" data-sound="hihat"></audio>
+    <audio src="sounds/kick.wav" data-sound="kick"></audio>
+    <audio src="sounds/openhat.wav" data-sound="openhat"></audio>
+    <audio src="sounds/ride.wav" data-sound="ride"></audio>
+    <audio src="sounds/snare.wav" data-sound="snare"></audio>
+    <audio src="sounds/tink.wav" data-sound="tink"></audio>
+    <audio src="sounds/tom.wav" data-sound="tom"></audio>
+
+    <section class="keys">
+    <button class="key" data-key="65">CLAP <br/> <span>A</span></button>
+    <button class="key" data-key="83">BOOM <br/> <span>S</span></button>
+    <button class="key" data-key="68">HIHAT <br/> <span>D</span></button>
+    <button class="key" data-key="70">KICK <br/> <span>F</span></button>
+    <button class="key" data-key="71">OPENHAT <br/> <span>G</span></button>
+    <button class="key" data-key="72">RIDE <br/> <span>H</span></button>
+    <button class="key" data-key="74">SNARE <br/> <span>J</span></button>
+    <button class="key" data-key="75">TINK <br/> <span>K</span></button>
+    <button class="key" data-key="76">TOM <br/> <span>L</span></button>
+
+    </section>
+
+
+    <!-- <button id="playChannel1">Play Channel 1</button> -->
     <script src="index.js"></script>
 </body>
 </html>
