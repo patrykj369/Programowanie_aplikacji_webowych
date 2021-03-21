@@ -29,7 +29,28 @@ body,html {
     flex: 1;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
+    min-height: 80vh;
+}
+.keysRecord{
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    min-height: 20vh;
+}
+
+.keyRecord{
+    border: .1rem solid red;
+    border-radius: .5rem;
+    margin: 1rem;
+    font-size: 1.3rem;
+    padding: 1rem .5rem;
+    transition: all .07s ease;
+    width: 9rem;
+    text-align: center;
+    color: white;
+    background: rgba(0, 0, 0, 0.4);
+    text-shadow: 0 0 .5rem black;
 }
 
 .playing {
