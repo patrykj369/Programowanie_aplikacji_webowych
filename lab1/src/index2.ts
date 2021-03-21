@@ -12,7 +12,7 @@ class StatsApp{
     constructor(){
         this.startApp();
     }
- 
+
     startApp(){
         this.getInputs();
         this.number = document.querySelector('#input0');
@@ -32,7 +32,7 @@ class StatsApp{
 
           }
             const tmp = +this.number.value;
-            
+
             for(let i=0; i<tmp; i++ ){
                 const p = document.createElement("label");
                 p.textContent="Wartość: ";
@@ -55,11 +55,11 @@ class StatsApp{
                         var l = document.getElementById("label"+(i+1));
                         var b = document.getElementById((i+1).toString());
                         var dd = document.getElementById("container");
-                        
+
                         dd.removeChild(d);
                         dd.removeChild(l);
                         dd.removeChild(b);
-                        
+
                         const val = +(this.number.value)-1;
                         this.number.value = val.toString();
                         var brbr = document.getElementById("br"+(i+1));
@@ -70,8 +70,8 @@ class StatsApp{
                     }else{
                         alert("Musi występowac choć jeden input");
                     }
-                        
-                        
+
+
                 });
                 this.container?.appendChild(button);
 
@@ -79,7 +79,7 @@ class StatsApp{
                 br.id = "br"+(i+1);
                 this.container?.appendChild(br);
             }
-            
+
         this.getInputs();
         this.watchInputValues();
     }
@@ -91,12 +91,12 @@ class StatsApp{
         if(this.container.hasChildNodes()){
             for(let i=0; i<+this.number.value; i++){
                 const tmp ="#input" + (i+1);
-                
-                this.dataArray.push(document.querySelector(tmp));    
-                 
+
+                this.dataArray.push(document.querySelector(tmp));
+
             }
         }
-        
+
         this.dataSumaInput = document.querySelector('#inputSum');
         this.dataAvgInput = document.querySelector('#inputAvg');
         this.dataMinInput = document.querySelector('#inputMin');
@@ -107,12 +107,12 @@ class StatsApp{
         this.number.addEventListener('input', () => this.addInput());
         if(this.container.hasChildNodes()){
             for(var i=0; i<+this.number.value; i++){
-                
+
                 this.dataArray[i]?.addEventListener('input', () => this.computeData());
-                
+
             }
         }
-        
+
     }
 
     computeData(){
@@ -120,11 +120,11 @@ class StatsApp{
         let sum:number = 0;
         for(let i=0; i<+this.number.value; i++){
             dataArray2[i]=+this.dataArray[i].value;
-            sum += dataArray2[i]; 
-                           
-        }   
-        const avg = sum/+this.number.value;  
-        const max = Math.max.apply(Math, dataArray2);   
+            sum += dataArray2[i];
+
+        }
+        const avg = sum/+this.number.value;
+        const max = Math.max.apply(Math, dataArray2);
         const min = Math.min.apply(Math, dataArray2);
         this.showStats(sum, avg, min, max);
     }
@@ -151,7 +151,7 @@ class StatsApp{
             this.dataAvgInput.value = avg.toString();
             this.dataMinInput.value = min.toString();
             this.dataMaxInput.value = max.toString();
-            
+
         }else{
             var element = document.getElementById('hid');
             var element1 = document.getElementById('suMa');
@@ -168,7 +168,7 @@ class StatsApp{
             element3.style.visibility = "hidden";
             element4.style.visibility = "hidden";
         }
-        
+
     }
 }
 
