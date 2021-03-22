@@ -29,7 +29,7 @@ body,html {
     flex: 1;
     align-items: center;
     justify-content: center;
-    min-height: 80vh;
+    min-height: 70vh;
 }
 .keysRecord{
     display: flex;
@@ -40,7 +40,7 @@ body,html {
 }
 
 .keyRecord{
-    border: .1rem solid red;
+    border: .1rem solid white;
     border-radius: .5rem;
     margin: 1rem;
     font-size: 1.3rem;
@@ -49,7 +49,21 @@ body,html {
     width: 9rem;
     text-align: center;
     color: white;
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, .4);
+    text-shadow: 0 0 .5rem black;
+}
+
+.keyRecordPress{
+    border: .1rem solid red;
+    border-radius: .5rem;
+    margin: 1rem;
+    font-size: 1.3rem;
+    padding: 1rem .5rem;
+    transition: all .07s ease;
+    width: 9rem;
+    text-align: center;
+    color: black;
+    background: rgba(255, 255, 255, .4);
     text-shadow: 0 0 .5rem black;
 }
 
@@ -62,3 +76,14 @@ body,html {
 span{
     font-size: 1.5rem;
 }
+
+#myProgress {
+    width: 100vw;
+    background-color: grey;
+  }
+
+  #myBar {
+    width: 1%;
+    height: 30px;
+    background-color: green;
+  }
