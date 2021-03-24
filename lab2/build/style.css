@@ -43,7 +43,6 @@ body,html {
 .keysRecord{
   min-height: 20vh;
   display: grid;
-  margin: a;
   justify-content: space-around;
   grid-template-columns: 1fr 1fr 1fr 4fr;
 }
@@ -99,4 +98,18 @@ span{
     height: 1rem;
     border-radius: 3rem;
     background-color: yellow;
+  }
+
+  .stopRecording:hover{
+    border: .1rem solid white;
+    border-radius: .5rem;
+    margin: 1rem auto 1rem auto;
+    font-size: 1.3rem;
+    padding: 1rem .5rem;
+    transition: all .07s ease;
+    text-align: center;
+    width: 15rem;
+    color: white;
+    background: rgba(255, 0, 0, 0.6);
+    text-shadow: 0 0 .5rem black;
   }
