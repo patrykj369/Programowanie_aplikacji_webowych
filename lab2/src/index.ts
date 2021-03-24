@@ -24,7 +24,7 @@ const snare: HTMLButtonElement = document.querySelector('#snare');
 const tink: HTMLButtonElement = document.querySelector('#tink');
 const tom: HTMLButtonElement = document.querySelector('#tom');
 
-const myBar: HTMLDivElement = document.querySelector('#myBar');
+const myBar: HTMLDivElement = document.querySelector('.myBar');
 
 const playChannel1Btn: HTMLButtonElement = document.querySelector('#playChannel1');
 const playChannel2Btn: HTMLButtonElement = document.querySelector('#playChannel2');
