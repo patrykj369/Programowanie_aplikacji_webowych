@@ -1,10 +1,10 @@
+var start = 'stop';
+var timeC = 0;
+var currentChannel;
 var channel1 = [];
 var channel2 = [];
 var channel3 = [];
 var channel4 = [];
-var start = 'stop';
-var timeC = 0;
-var currentChannel;
 var clapAudio = document.querySelector('[data-sound="clap"]');
 var boomAudio = document.querySelector('[data-sound="boom"]');
 var hihatAudio = document.querySelector('[data-sound="hihat"]');
@@ -50,10 +50,17 @@ stopRecording1Btn.addEventListener('click', stopRecording);
 stopRecording2Btn.addEventListener('click', stopRecording);
 stopRecording3Btn.addEventListener('click', stopRecording);
 stopRecording4Btn.addEventListener('click', stopRecording);
+blockButton(playChannel1Btn);
+blockButton(playChannel2Btn);
+blockButton(playChannel3Btn);
+blockButton(playChannel4Btn);
 function removeTransition(e) {
     if (e.propertyName !== 'transform')
         return;
     e.target.classList.remove('playing');
+    e.target.classList.remove('blockButtonAnimation');
+    e.target.classList.remove('stopButtonAnimation');
+    e.target.classList.remove('startButtonAnimation');
 }
 function onKeyDown(ev) {
     var key = ev.key;
@@ -88,8 +95,6 @@ function onKeyDown(ev) {
                 });
             break;
     }
-    //console.log("Kanał2 " + channel2);
-    //console.log("Kanał1 " + channel1);
     playSound(key);
 }
 function playSound(key) {
@@ -151,36 +156,45 @@ function playSound(key) {
     }
 }
 function startRecording(event) {
-    //console.log(timeCurrent);
-    // if(document.getElementById((event.target.id).toString().slice(-1)) !== null)
-    // clearProgressBar((event.target.id).toString().slice(-1));
     currentChannel = event.target.id;
     start = 'start';
     timeC = event.timeStamp;
     switch (currentChannel) {
         case "startRecording1":
+            startButtonAnimation(startRecording1Btn);
+            unBlockAnimation(playChannel1Btn);
             startRecording1Btn.classList.add('keyRecordPress');
+            unBlockButton(playChannel1Btn);
             while (channel1.length > 0) {
                 channel1.pop();
             }
             ;
             break;
         case "startRecording2":
+            startButtonAnimation(startRecording2Btn);
+            unBlockAnimation(playChannel2Btn);
             startRecording2Btn.classList.add('keyRecordPress');
+            unBlockButton(playChannel2Btn);
             while (channel2.length > 0) {
                 channel2.pop();
             }
             ;
             break;
         case "startRecording3":
+            startButtonAnimation(startRecording3Btn);
+            unBlockAnimation(playChannel3Btn);
             startRecording3Btn.classList.add('keyRecordPress');
+            unBlockButton(playChannel3Btn);
             while (channel3.length > 0) {
                 channel3.pop();
             }
             ;
             break;
         case "startRecording4":
+            startButtonAnimation(startRecording4Btn);
+            unBlockAnimation(playChannel4Btn);
             startRecording4Btn.classList.add('keyRecordPress');
+            unBlockButton(playChannel4Btn);
             while (channel4.length > 0) {
                 channel4.pop();
             }
@@ -188,13 +202,26 @@ function startRecording(event) {
             break;
     }
 }
-function stopRecording() {
-    var _a, _b, _c, _d;
+function stopRecording(event) {
     start = 'stop';
-    (_a = startRecording1Btn.classList) === null || _a === void 0 ? void 0 : _a.remove('keyRecordPress');
-    (_b = startRecording2Btn.classList) === null || _b === void 0 ? void 0 : _b.remove('keyRecordPress');
-    (_c = startRecording3Btn.classList) === null || _c === void 0 ? void 0 : _c.remove('keyRecordPress');
-    (_d = startRecording4Btn.classList) === null || _d === void 0 ? void 0 : _d.remove('keyRecordPress');
+    switch (event.target.id) {
+        case "stopRecording1":
+            stopButtonAnimation(stopRecording1Btn);
+            unKeyRecordPress(startRecording1Btn);
+            break;
+        case "stopRecording2":
+            stopButtonAnimation(stopRecording2Btn);
+            unKeyRecordPress(startRecording2Btn);
+            break;
+        case "stopRecording3":
+            stopButtonAnimation(stopRecording3Btn);
+            unKeyRecordPress(startRecording3Btn);
+            break;
+        case "stopRecording4":
+            stopButtonAnimation(stopRecording4Btn);
+            unKeyRecordPress(startRecording4Btn);
+            break;
+    }
 }
 function onPlayChannel(event) {
     playChannel(event.target.id);
@@ -220,44 +247,52 @@ function playChannel(kanal) {
         timeMusic4 = channel4[lengtMusic4 - 1].time + 100;
     switch (kanal) {
         case "playChannel1":
-            playChannel1Btn.classList.add('keyRecordPress');
-            progressBar(kanal.slice(-1));
-            (_a = startRecording1Btn.classList) === null || _a === void 0 ? void 0 : _a.remove('keyRecordPress');
-            channel1.forEach(function (sound) {
-                var timeout = sound.time - prevTime;
-                setTimeout(function () { return playSound(sound.key); }, timeout);
-                setTimeout(function () { return playChannel1Btn.classList.remove('keyRecordPress'); }, timeMusic1);
-            });
+            if (channel1.length > 0) {
+                playChannel1Btn.classList.add('keyPlayPress');
+                progressBar(kanal.slice(-1));
+                (_a = startRecording1Btn.classList) === null || _a === void 0 ? void 0 : _a.remove('keyPlayPress');
+                channel1.forEach(function (sound) {
+                    var timeout = sound.time - prevTime;
+                    setTimeout(function () { return playSound(sound.key); }, timeout);
+                    setTimeout(function () { return playChannel1Btn.classList.remove('keyPlayPress'); }, timeMusic1);
+                });
+            }
             break;
         case "playChannel2":
-            playChannel2Btn.classList.add('keyRecordPress');
-            progressBar(kanal.slice(-1));
-            (_b = startRecording2Btn.classList) === null || _b === void 0 ? void 0 : _b.remove('keyRecordPress');
-            channel2.forEach(function (sound) {
-                var timeout = sound.time - prevTime;
-                setTimeout(function () { return playSound(sound.key); }, timeout);
-                setTimeout(function () { return playChannel2Btn.classList.remove('keyRecordPress'); }, timeMusic2);
-            });
+            if (channel2.length > 0) {
+                playChannel2Btn.classList.add('keyPlayPress');
+                progressBar(kanal.slice(-1));
+                (_b = startRecording2Btn.classList) === null || _b === void 0 ? void 0 : _b.remove('keyPlayPress');
+                channel2.forEach(function (sound) {
+                    var timeout = sound.time - prevTime;
+                    setTimeout(function () { return playSound(sound.key); }, timeout);
+                    setTimeout(function () { return playChannel2Btn.classList.remove('keyPlayPress'); }, timeMusic2);
+                });
+            }
             break;
         case "playChannel3":
-            playChannel3Btn.classList.add('keyRecordPress');
-            progressBar(kanal.slice(-1));
-            (_c = startRecording3Btn.classList) === null || _c === void 0 ? void 0 : _c.remove('keyRecordPress');
-            channel3.forEach(function (sound) {
-                var timeout = sound.time - prevTime;
-                setTimeout(function () { return playSound(sound.key); }, timeout);
-                setTimeout(function () { return playChannel3Btn.classList.remove('keyRecordPress'); }, timeMusic3);
-            });
+            if (channel3.length > 0) {
+                playChannel3Btn.classList.add('keyPlayPress');
+                progressBar(kanal.slice(-1));
+                (_c = startRecording3Btn.classList) === null || _c === void 0 ? void 0 : _c.remove('keyPlayPress');
+                channel3.forEach(function (sound) {
+                    var timeout = sound.time - prevTime;
+                    setTimeout(function () { return playSound(sound.key); }, timeout);
+                    setTimeout(function () { return playChannel3Btn.classList.remove('keyPlayPress'); }, timeMusic3);
+                });
+            }
             break;
         case "playChannel4":
-            playChannel4Btn.classList.add('keyRecordPress');
-            progressBar(kanal.slice(-1));
-            (_d = startRecording4Btn.classList) === null || _d === void 0 ? void 0 : _d.remove('keyRecordPress');
-            channel4.forEach(function (sound) {
-                var timeout = sound.time - prevTime;
-                setTimeout(function () { return playSound(sound.key); }, timeout);
-                setTimeout(function () { return playChannel4Btn.classList.remove('keyRecordPress'); }, timeMusic4);
-            });
+            if (channel4.length > 0) {
+                playChannel4Btn.classList.add('keyPlayPress');
+                progressBar(kanal.slice(-1));
+                (_d = startRecording4Btn.classList) === null || _d === void 0 ? void 0 : _d.remove('keyPlayPress');
+                channel4.forEach(function (sound) {
+                    var timeout = sound.time - prevTime;
+                    setTimeout(function () { return playSound(sound.key); }, timeout);
+                    setTimeout(function () { return playChannel4Btn.classList.remove('keyPlayPress'); }, timeMusic4);
+                });
+            }
             break;
     }
 }
@@ -288,4 +323,22 @@ function progressBar(iD) {
         }
     }
     move();
+}
+function blockButton(obiekt) {
+    obiekt.classList.add('blockButton');
+}
+function unBlockButton(obiekt) {
+    obiekt.classList.remove('blockButton');
+}
+function unBlockAnimation(obiekt) {
+    obiekt.classList.add('blockButtonAnimation');
+}
+function stopButtonAnimation(obiekt) {
+    obiekt.classList.add('stopButtonAnimation');
+}
+function startButtonAnimation(obiekt) {
+    obiekt.classList.add('startButtonAnimation');
+}
+function unKeyRecordPress(obiekt) {
+    obiekt.classList.remove('keyRecordPress');
 }
