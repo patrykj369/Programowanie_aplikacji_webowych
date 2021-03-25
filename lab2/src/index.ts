@@ -1,12 +1,10 @@
 let start: string = 'stop';
 let timeC: number = 0;
 let currentChannel: string;
-
 const channel1: any[] = [];
 const channel2: any[] = [];
 const channel3: any[] = [];
 const channel4: any[] = [];
-
 
 const clapAudio: HTMLAudioElement = document.querySelector('[data-sound="clap"]');
 const boomAudio: HTMLAudioElement = document.querySelector('[data-sound="boom"]');
@@ -45,10 +43,8 @@ const stopRecording2Btn: HTMLButtonElement = document.querySelector('#stopRecord
 const stopRecording3Btn: HTMLButtonElement = document.querySelector('#stopRecording3');
 const stopRecording4Btn: HTMLButtonElement = document.querySelector('#stopRecording4');
 
-
 document.body.addEventListener('keypress', onKeyDown);
 document.body.addEventListener('transitionend', removeTransition);
-
 
 playChannel1Btn.addEventListener('click', onPlayChannel);
 playChannel2Btn.addEventListener('click', onPlayChannel);
@@ -78,11 +74,9 @@ function removeTransition(e:any) {
     e.target.classList.remove('startButtonAnimation');
 }
 
-
 function onKeyDown(ev:KeyboardEvent): void{
     const key = ev.key;
     const time = ev.timeStamp - timeC;
-
 
         switch(currentChannel){
             case "startRecording1":
@@ -114,9 +108,7 @@ function onKeyDown(ev:KeyboardEvent): void{
            });
            break;
         }
-
     playSound(key);
-
 }
 
 function playSound(key: string):void{
@@ -179,7 +171,6 @@ function playSound(key: string):void{
 }
 
 function startRecording(event): void{
-
     currentChannel = event.target.id;
     start = 'start';
     timeC = event.timeStamp;
@@ -187,9 +178,7 @@ function startRecording(event): void{
         case "startRecording1":
             startButtonAnimation(startRecording1Btn);
             unBlockAnimation(playChannel1Btn);
-
             startRecording1Btn.classList.add('keyRecordPress');
-
             unBlockButton(playChannel1Btn);
             while(channel1.length>0){
                 channel1.pop();
@@ -198,9 +187,7 @@ function startRecording(event): void{
         case "startRecording2":
             startButtonAnimation(startRecording2Btn);
             unBlockAnimation(playChannel2Btn);
-
             startRecording2Btn.classList.add('keyRecordPress');
-
             unBlockButton(playChannel2Btn);
             while(channel2.length>0){
                 channel2.pop();
@@ -209,9 +196,7 @@ function startRecording(event): void{
         case "startRecording3":
             startButtonAnimation(startRecording3Btn);
             unBlockAnimation(playChannel3Btn);
-
             startRecording3Btn.classList.add('keyRecordPress');
-
             unBlockButton(playChannel3Btn);
             while(channel3.length>0){
                 channel3.pop();
@@ -220,16 +205,13 @@ function startRecording(event): void{
         case "startRecording4":
             startButtonAnimation(startRecording4Btn);
             unBlockAnimation(playChannel4Btn);
-
             startRecording4Btn.classList.add('keyRecordPress');
-
             unBlockButton(playChannel4Btn);
             while(channel4.length>0){
                 channel4.pop();
             };
         break;
     }
-
 }
 
 function stopRecording(event): void{
@@ -259,6 +241,10 @@ function onPlayChannel(event): void {
 }
 
 function playChannel(kanal: string): void{
+    playMe(kanal);
+}
+
+function playMe(kanal: string){
     let prevTime = 0;
 
     const lengtMusic1 = channel1.length;
@@ -335,7 +321,6 @@ function playChannel(kanal: string): void{
             }
         break;
     }
-
 }
 
 function progressBar(iD:string): void{
@@ -361,14 +346,15 @@ function progressBar(iD:string): void{
                     elem.style.width = width + "%";
                 }
 
-        if(width >= 100)
-        elem.style.width = "1%";
+            if(width >= 100)
+            elem.style.width = "1%";
         }
     }
 }
   move();
 }
 
+//---------------ANIMACJE-------------------------------------
 function blockButton(obiekt: HTMLButtonElement):void{
     obiekt.classList.add('blockButton');
 }

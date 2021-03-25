@@ -227,6 +227,9 @@ function onPlayChannel(event) {
     playChannel(event.target.id);
 }
 function playChannel(kanal) {
+    playMe(kanal);
+}
+function playMe(kanal) {
     var _a, _b, _c, _d;
     var prevTime = 0;
     var lengtMusic1 = channel1.length;
@@ -324,6 +327,7 @@ function progressBar(iD) {
     }
     move();
 }
+//---------------ANIMACJE-------------------------------------
 function blockButton(obiekt) {
     obiekt.classList.add('blockButton');
 }
