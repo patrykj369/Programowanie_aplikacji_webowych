@@ -1,22 +1,36 @@
+html{
+  height:100%;
+  background: linear-gradient(rgba(102, 158, 241, 0.39), rgba(12, 34, 231, 0.507));
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+
 body {
+  //height: 100vh;
   box-sizing: border-box;
-  background: lightblue;
+
   padding: 0;
   width: 1200px;
   margin: auto;
   display: flex;
-  //position: absolute;
   justify-content: center;
   align-items: center;
   font-family: sans-serif;
 }
-
+main{
+  width: 820px;
+}
 .searchInput{
+  margin: 0 auto;
   margin-top: 50px;
   display: grid;
+  grid-template-columns: 1fr 500px 40px 1fr;
 
     #searchInp{
-      grid-column: 1;
+      grid-column: 2;
+      margin: 0 auto;
       width: 500px;
       height: 40px;
       border: none;
@@ -26,9 +40,9 @@ body {
     }
 
     #buttonInp{
-      position: absolute;
+      margin: 0 auto;
+      grid-column: 3;
       border: none;
-      margin-left: 500px;
       width: 40px;
       height: 42px;
       background-color: #fff;
@@ -40,19 +54,21 @@ body {
 }
 
 .weatherInfoBlock{
-  //position: absolute;
+  //linear-gradient(#97969793, rgba(12, 34, 231, 0.795))
+  margin: 0 auto;
   position: relative;
-  background-image: linear-gradient(#97969793, rgba(66, 64, 64, 0.342)), url("https://www.inventair-project.eu/images/8.jpg");
+  background-image: linear-gradient(#1714a56e, rgba(12, 34, 231, 0.288)), url("https://www.inventair-project.eu/images/8.jpg");
   background-position: center;
   display: grid;
   width: 800px;
   margin-top: 40px;
-  margin-left: -120px;
   grid-template-columns: 1fr;
   grid-template-rows: 60px 30px 80px 80px;
   padding: 10px;
   border-radius: 10px;
   color: #fff;
+  box-shadow: 0 8px 10px -2px rgba(255, 255, 255, 0.493);
+  margin-bottom: 20px;;
 
   .weatherCommon{
     margin-left: 30px;

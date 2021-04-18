@@ -16,8 +16,6 @@ export class App {
 
     getCity(){
 
-
-
         const inputCity = <HTMLInputElement>document.getElementById("searchInp");
         const city = inputCity.value;
 
@@ -29,7 +27,8 @@ export class App {
     async getCityInfo(city: string) {
         const weather = await this.getWeather(city);
 
-        const newDiv = document.createElement("div");
+        //---tworzenie nowych elementow---
+        const newDiv = document.createElement("section");
         newDiv.className = "weatherInfoBlock";
         const newP1 = document.createElement("p");
         const newP2 = document.createElement("p");
@@ -38,6 +37,7 @@ export class App {
         const newP6 = document.createElement("span");
         const newP5 = document.createElement("img");
 
+        //---uzupełnianie elementow danymi---
         newP1.innerHTML = weather.name;
         newP2.innerHTML = "Last actualisation: " + new Date().toLocaleTimeString('en-GB', { hour: "numeric",
         minute: "numeric"});
@@ -46,11 +46,11 @@ export class App {
         newP6.innerHTML = weather.main.pressure;
         newP5.src = "./photos/cloud-sun-solid.svg";
 
+        //---dodawanie odpowiednich klas do stylowania---
         newP1.classList.add("weatherInfoCity");
         newP2.classList.add("weatherInfoHour");
         newP3.classList.add("weatherInfoTemperature");
         newP4.classList.add("weatherInfoPressure");
-        //newP5.classList.add("weatherInfoCity weatherCommon");
         newP6.classList.add("pressureValue");
 
         newP1.classList.add("weatherCommon");
@@ -58,8 +58,9 @@ export class App {
         newP3.classList.add("weatherCommon");
         newP4.classList.add("weatherCommon");
 
-        const weatherBlock = document.getElementById("weatherBlocksID");
 
+        //---wprowadzanie elementow na strone---
+        const weatherBlock = document.getElementById("weatherBlocksID");
         weatherBlock.appendChild(newDiv);
         newDiv.appendChild(newP1);
         newDiv.appendChild(newP2);
@@ -67,6 +68,12 @@ export class App {
         newDiv.appendChild(newP4);
         newP4.appendChild(newP6);
         newDiv.appendChild(newP5);
+
+        //---czyszczenie inputu miasta---
+        const inputCitySearch = <HTMLInputElement>document.getElementById("searchInp");
+        inputCitySearch.value = "";
+
+        //---zapis w pamieci localStorage---
         this.saveData(weather);
     }
 
