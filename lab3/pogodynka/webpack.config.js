@@ -30,6 +30,10 @@ module.exports = {
         exclude: /node_modules/
       },
       {
+        test: /\.(gif|svg|jpg|png)$/,
+        loader: "file-loader",
+      },
+      {
         test: /\.s[ac]ss$/i,
         use: [
           // Creates `style` nodes from JS strings
@@ -45,7 +49,9 @@ module.exports = {
           // Compiles Sass to CSS
           "sass-loader"
         ]
+
       }
     ]
+
   }
 };
