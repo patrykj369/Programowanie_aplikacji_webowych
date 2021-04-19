@@ -1,6 +1,7 @@
 html{
   height:100%;
-  background: linear-gradient(rgba(102, 158, 241, 0.39), rgba(12, 34, 231, 0.507));
+  //background: linear-gradient(rgba(102, 158, 241, 0.39), rgba(12, 34, 231, 0.507));
+  background-image: url("./photos/Photo by Tahir Shaw from Pexels.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -21,6 +22,13 @@ body {
 }
 main{
   width: 820px;
+}
+
+.signatureBackground{
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 8px;
 }
 .searchInput{
   margin: 0 auto;
@@ -54,10 +62,11 @@ main{
 }
 
 .weatherInfoBlock{
+  //linear-gradient(rgba(195, 240, 34, 0.39), rgba(12, 34, 231, 0.288)), url("https://www.inventair-project.eu/images/8.jpg");
   //linear-gradient(#97969793, rgba(12, 34, 231, 0.795))
   margin: 0 auto;
   position: relative;
-  background-image: linear-gradient(rgba(195, 240, 34, 0.39), rgba(12, 34, 231, 0.288)), url("https://www.inventair-project.eu/images/8.jpg");
+  background-image: linear-gradient(rgba(61, 218, 95, 0.596), rgba(6, 18, 129, 0.644)), url("https://www.inventair-project.eu/images/8.jpg");
   background-position: center;
   display: grid;
   width: 800px;
@@ -78,8 +87,8 @@ main{
     position: absolute;
     top: 70px;
     right: 40px;
-    width: 160px;
-    height: 130px;
+    width: 150px;
+    height: 150px;
   }
 
   .weatherInfoCity{
@@ -116,8 +125,6 @@ main{
     grid-row: 3;
     font-size: 34px;
     margin-top: 10px;
-    // float: right;
-    // margin-right: 680px;
   }
 
 }

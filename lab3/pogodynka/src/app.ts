@@ -1,5 +1,5 @@
 export class App {
-    opwApiKey = "klucz";
+    opwApiKey = "99eb7e6cb81a838f7d22416630652f72";
     liczbaWywolan: number = 0;
 
     constructor() {
@@ -10,6 +10,18 @@ export class App {
         //this.getCityInfo('zakopane');
         //this.getData();
         //console.log(this.getData());
+        // const inputCityBtn = document.getElementById("buttonInp");
+        // inputCityBtn.addEventListener("click", (e: Event) => this.getCity());
+        // const inputCitySearch = document.getElementById("searchInp");
+        // inputCitySearch.addEventListener("keydown", (e) => {
+        //     if(e.key === 'Enter'){
+        //         this.getCity();
+        //     }
+        // })
+        this.pressButtonOrClickMouse();
+    }
+
+    pressButtonOrClickMouse(){
         const inputCityBtn = document.getElementById("buttonInp");
         inputCityBtn.addEventListener("click", (e: Event) => this.getCity());
         const inputCitySearch = document.getElementById("searchInp");
@@ -53,7 +65,6 @@ export class App {
 
     async getCityInfo(city: string) {
         const weather = await this.getWeather(city);
-
         //---tworzenie nowych elementow---
         const newDiv = document.createElement("section");
         newDiv.className = "weatherInfoBlock";
@@ -72,8 +83,9 @@ export class App {
         minute: "numeric"});
         newDegrees.innerHTML = Math.round(weather.main.temp - 273.15).toString(); //oblicza z Kelwinów stopnie Celsjusza i zaokrągla
         newAirPressureText.innerHTML = "Air pressure: ";
-        newAirPressure.innerHTML = weather.main.pressure;
-        newImage.src = "./photos/cloud-sun-solid.svg";
+        newAirPressure.innerHTML = weather.main.pressure + " hPa";
+        const srcImg =  `http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`;
+        newImage.src = srcImg;
         newDegreesChar.innerHTML = "&ordm";
         //---dodawanie odpowiednich klas do stylowania---
         newName.classList.add("weatherInfoCity");
@@ -110,6 +122,9 @@ export class App {
     async getCityInfoFromLocalStorage(city: string) {
         const weather = await this.getWeather(city);
 
+        //const icon = weather.weather[0].icon;
+        //console.log(icon);
+
         //---tworzenie nowych elementow---
         const newDiv = document.createElement("section");
         newDiv.className = "weatherInfoBlock";
@@ -128,8 +143,9 @@ export class App {
         minute: "numeric"});
         newDegrees.innerHTML = Math.round(weather.main.temp - 273.15).toString(); //oblicza z Kelwinów stopnie Celsjusza i zaokrągla
         newAirPressureText.innerHTML = "Air pressure: ";
-        newAirPressure.innerHTML = weather.main.pressure;
-        newImage.src = "./photos/cloud-sun-solid.svg";
+        newAirPressure.innerHTML = weather.main.pressure + " hPa";
+        const srcImg =  `http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`;
+        newImage.src = srcImg;
         newDegreesChar.innerHTML = "&ordm";
         //---dodawanie odpowiednich klas do stylowania---
         newName.classList.add("weatherInfoCity");
