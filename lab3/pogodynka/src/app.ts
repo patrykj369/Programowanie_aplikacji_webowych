@@ -1,9 +1,15 @@
 export class App {
-    myKey= "99eb7e6cb81a838f7d22416630652f72";
-    opwApiKey = "50d53005c0fd5f556bb4ef15224c4209";
+    opwApiKey = "klucz";
+    liczbaWywolan: number = 0;
 
     constructor() {
+        this.getLocalStorageNumberLines();
+        this.getItemsFromLocalStorage();
+        //this.getData();
+
         //this.getCityInfo('zakopane');
+        //this.getData();
+        //console.log(this.getData());
         const inputCityBtn = document.getElementById("buttonInp");
         inputCityBtn.addEventListener("click", (e: Event) => this.getCity());
         const inputCitySearch = document.getElementById("searchInp");
@@ -22,6 +28,27 @@ export class App {
         this.getCityInfo(city);
     }
 
+    getLocalStorageNumberLines(){
+        const wywolania = localStorage.getItem('liczbaWywolan');
+        this.liczbaWywolan = JSON.parse(wywolania);
+        //console.log(JSON.parse(wywolania));
+    }
+
+    async getItemsFromLocalStorage(){
+        // this.getData();
+        const obiekty = this.getData();
+        let items;
+        for(let i=0; i<this.liczbaWywolan; i++){
+            items = await obiekty;
+        }
+        for(let i=0; i<this.liczbaWywolan; i++){
+            const item = JSON.parse(items[i]);
+            this.getCityInfoFromLocalStorage(item.name);
+        }
+
+        // const nowe = (await obiekty).values;
+        //console.log(item);
+    }
 
 
     async getCityInfo(city: string) {
@@ -30,44 +57,47 @@ export class App {
         //---tworzenie nowych elementow---
         const newDiv = document.createElement("section");
         newDiv.className = "weatherInfoBlock";
-        const newP1 = document.createElement("p");
-        const newP2 = document.createElement("p");
-        const newP3 = document.createElement("p");
-        const newP4 = document.createElement("p");
-        const newP6 = document.createElement("span");
-        const newP5 = document.createElement("img");
+        const newName = document.createElement("p");
+        const newLastActualisation = document.createElement("p");
+        const newDegrees = document.createElement("p");
+        const newAirPressureText = document.createElement("p");
+        const newImage = document.createElement("img");
+        const newAirPressure = document.createElement("span");
+        const newDegreesChar = document.createElement("p");
+
 
         //---uzupełnianie elementow danymi---
-        newP1.innerHTML = weather.name;
-        newP2.innerHTML = "Last actualisation: " + new Date().toLocaleTimeString('en-GB', { hour: "numeric",
+        newName.innerHTML = weather.name;
+        newLastActualisation.innerHTML = "Last actualisation: " + new Date().toLocaleTimeString('en-GB', { hour: "numeric",
         minute: "numeric"});
-        newP3.innerHTML = weather.main.temp;
-        newP4.innerHTML = "Air pressure: ";
-        newP6.innerHTML = weather.main.pressure;
-        newP5.src = "./photos/cloud-sun-solid.svg";
-
+        newDegrees.innerHTML = Math.round(weather.main.temp - 273.15).toString(); //oblicza z Kelwinów stopnie Celsjusza i zaokrągla
+        newAirPressureText.innerHTML = "Air pressure: ";
+        newAirPressure.innerHTML = weather.main.pressure;
+        newImage.src = "./photos/cloud-sun-solid.svg";
+        newDegreesChar.innerHTML = "&ordm";
         //---dodawanie odpowiednich klas do stylowania---
-        newP1.classList.add("weatherInfoCity");
-        newP2.classList.add("weatherInfoHour");
-        newP3.classList.add("weatherInfoTemperature");
-        newP4.classList.add("weatherInfoPressure");
-        newP6.classList.add("pressureValue");
+        newName.classList.add("weatherInfoCity");
+        newLastActualisation.classList.add("weatherInfoHour");
+        newDegrees.classList.add("weatherInfoTemperature");
+        newAirPressureText.classList.add("weatherInfoPressure");
+        newAirPressure.classList.add("pressureValue");
+        newDegreesChar.classList.add("degrees");
 
-        newP1.classList.add("weatherCommon");
-        newP2.classList.add("weatherCommon");
-        newP3.classList.add("weatherCommon");
-        newP4.classList.add("weatherCommon");
-
+        newName.classList.add("weatherCommon");
+        newLastActualisation.classList.add("weatherCommon");
+        newDegrees.classList.add("weatherCommon");
+        newAirPressureText.classList.add("weatherCommon");
 
         //---wprowadzanie elementow na strone---
         const weatherBlock = document.getElementById("weatherBlocksID");
         weatherBlock.appendChild(newDiv);
-        newDiv.appendChild(newP1);
-        newDiv.appendChild(newP2);
-        newDiv.appendChild(newP3);
-        newDiv.appendChild(newP4);
-        newP4.appendChild(newP6);
-        newDiv.appendChild(newP5);
+        newDiv.appendChild(newName);
+        newDiv.appendChild(newLastActualisation);
+        newDiv.appendChild(newDegrees);
+        newDiv.appendChild(newAirPressureText);
+        newAirPressureText.appendChild(newAirPressure);
+        newDiv.appendChild(newImage);
+        newDegrees.appendChild(newDegreesChar);
 
         //---czyszczenie inputu miasta---
         const inputCitySearch = <HTMLInputElement>document.getElementById("searchInp");
@@ -77,22 +107,110 @@ export class App {
         this.saveData(weather);
     }
 
+    async getCityInfoFromLocalStorage(city: string) {
+        const weather = await this.getWeather(city);
+
+        //---tworzenie nowych elementow---
+        const newDiv = document.createElement("section");
+        newDiv.className = "weatherInfoBlock";
+        const newName = document.createElement("p");
+        const newLastActualisation = document.createElement("p");
+        const newDegrees = document.createElement("p");
+        const newAirPressureText = document.createElement("p");
+        const newImage = document.createElement("img");
+        const newAirPressure = document.createElement("span");
+        const newDegreesChar = document.createElement("p");
+
+
+        //---uzupełnianie elementow danymi---
+        newName.innerHTML = weather.name;
+        newLastActualisation.innerHTML = "Last actualisation: " + new Date().toLocaleTimeString('en-GB', { hour: "numeric",
+        minute: "numeric"});
+        newDegrees.innerHTML = Math.round(weather.main.temp - 273.15).toString(); //oblicza z Kelwinów stopnie Celsjusza i zaokrągla
+        newAirPressureText.innerHTML = "Air pressure: ";
+        newAirPressure.innerHTML = weather.main.pressure;
+        newImage.src = "./photos/cloud-sun-solid.svg";
+        newDegreesChar.innerHTML = "&ordm";
+        //---dodawanie odpowiednich klas do stylowania---
+        newName.classList.add("weatherInfoCity");
+        newLastActualisation.classList.add("weatherInfoHour");
+        newDegrees.classList.add("weatherInfoTemperature");
+        newAirPressureText.classList.add("weatherInfoPressure");
+        newAirPressure.classList.add("pressureValue");
+        newDegreesChar.classList.add("degrees");
+
+        newName.classList.add("weatherCommon");
+        newLastActualisation.classList.add("weatherCommon");
+        newDegrees.classList.add("weatherCommon");
+        newAirPressureText.classList.add("weatherCommon");
+
+        //---wprowadzanie elementow na strone---
+        const weatherBlock = document.getElementById("weatherBlocksID");
+        weatherBlock.appendChild(newDiv);
+        newDiv.appendChild(newName);
+        newDiv.appendChild(newLastActualisation);
+        newDiv.appendChild(newDegrees);
+        newDiv.appendChild(newAirPressureText);
+        newAirPressureText.appendChild(newAirPressure);
+        newDiv.appendChild(newImage);
+        newDegrees.appendChild(newDegreesChar);
+
+        //---czyszczenie inputu miasta---
+        const inputCitySearch = <HTMLInputElement>document.getElementById("searchInp");
+        inputCitySearch.value = "";
+
+        //---zapis w pamieci localStorage---
+        //this.saveData(weather);
+    }
+
+
+
     async getWeather(city: string): Promise<any> {
         const openWeatherUrl = `http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${this.opwApiKey}`;
         const weatherResponse = await fetch(openWeatherUrl);
         const weatherData = await weatherResponse.json();
-        console.log(weatherData);
+        //console.log(weatherData);
         return weatherData;
     }
     saveData(data: any) {
-        localStorage.setItem('weatherData', JSON.stringify(data));
+        this.liczbaWywolan++;
+        localStorage.setItem('weatherData' + this.liczbaWywolan, JSON.stringify(data));
+        localStorage.setItem('liczbaWywolan', JSON.stringify(this.liczbaWywolan))
     }
-    getData() {
-        const data = localStorage.getItem('weatherData');
-        if (data) {
-            return JSON.parse(data);
-        } else {
-            return {};
+    async getData() {
+
+        //const values = { ...localStorage};
+        const items =[];
+        const quantity = this.liczbaWywolan;
+        for(let i = 1; i <= quantity; i++){
+            items[i-1] = localStorage.getItem('weatherData' + i);
         }
+        //console.log(items);
+        return items;
+
+        //const quantity = this.liczbaWywolan;
+        //console.log(quantity);
+        // const data = localStorage.getItem('weatherData' + i)
+
+        // let values = [],
+        //     keys = Object.keys(data),
+        //     i = keys.length;
+
+        //     while ( i-- ) {
+        //         values.push( localStorage.getItem(keys[i]) );
+        //     }
+        //     console.log(values);
+
+
+        // for(let i = 1; i <= quantity; i++){
+        //     const data = localStorage.getItem('weatherData' + i);
+        //     if (data) {
+        //         console.log(JSON.parse(data));
+        //         return JSON.parse(data);
+        //     } else {
+        //         return {};
+        //     }
+        // }
+
     }
 }

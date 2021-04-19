@@ -5,7 +5,7 @@ html{
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
-
+//rgba(102, 158, 241, 0.39), rgba(195, 240, 34, 0.39)
 
 body {
   //height: 100vh;
@@ -57,7 +57,7 @@ main{
   //linear-gradient(#97969793, rgba(12, 34, 231, 0.795))
   margin: 0 auto;
   position: relative;
-  background-image: linear-gradient(#1714a56e, rgba(12, 34, 231, 0.288)), url("https://www.inventair-project.eu/images/8.jpg");
+  background-image: linear-gradient(rgba(195, 240, 34, 0.39), rgba(12, 34, 231, 0.288)), url("https://www.inventair-project.eu/images/8.jpg");
   background-position: center;
   display: grid;
   width: 800px;
@@ -67,7 +67,7 @@ main{
   padding: 10px;
   border-radius: 10px;
   color: #fff;
-  box-shadow: 0 8px 10px -2px rgba(255, 255, 255, 0.493);
+  box-shadow: 0 8px 10px -2px rgba(58, 56, 56, 0.493);
   margin-bottom: 20px;;
 
   .weatherCommon{
@@ -97,6 +97,7 @@ main{
   }
 
   .weatherInfoTemperature{
+    display: flex;
     grid-column: 1;
     grid-row: 3;
     margin-top: 10px;
@@ -110,5 +111,13 @@ main{
     font-size: 22px;
   }
 
+  .degrees{
+    grid-column: 1;
+    grid-row: 3;
+    font-size: 34px;
+    margin-top: 10px;
+    // float: right;
+    // margin-right: 680px;
+  }
 
 }
