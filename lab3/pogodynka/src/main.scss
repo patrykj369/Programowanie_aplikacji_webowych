@@ -59,10 +59,11 @@ main{
       background-repeat: no-repeat;
       background-position: center;
       outline: none;
+      transition: background-color 1s;
     }
 
     #buttonInp:hover{
-      background-color:rgb(51, 201, 255);
+      background-color:rgb(220, 229, 232);
     }
 }
 
@@ -140,6 +141,17 @@ main{
     grid-row: 3;
     font-size: 34px;
     margin-top: 10px;
+  }
+
+  .weatherButtonX{
+    position: absolute;
+    outline: none;
+    background-color: transparent;
+    margin-top: 8px;
+    right: 10px;
+    width: 30px;
+    height: 20px;
+    border-radius: 50%;
   }
 
 }

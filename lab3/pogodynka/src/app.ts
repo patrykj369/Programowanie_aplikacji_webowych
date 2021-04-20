@@ -4,13 +4,35 @@ export class App {
 
 
     constructor() {
+        this.liczbaWywolan =0;
         this.stickySearchInput();
         this.getLocalStorageNumberLines();
         this.getItemsFromLocalStorage();
+        this.getXCityWeather();
 
         setInterval(() => this.timedRefresh(), 200000);
 
         this.pressButtonOrClickMouse();
+    }
+
+    getXCityWeather(){
+        window.onclick = (event: Event) => {
+            this.removeCityWeather(event);
+          }
+    }
+
+    removeCityWeather(ev: Event){
+        const nazwa = ev.target as Element;
+        const nowa = nazwa.id;
+        if(nazwa.className==="weatherButtonX"){
+            const dousuniecia = nazwa.parentElement.id;
+            const usun = document.getElementById(dousuniecia);
+            //localStorage.
+            console.log(dousuniecia);
+            usun.remove();
+
+        }
+
     }
 
     stickySearchInput(){
@@ -46,6 +68,11 @@ export class App {
                 this.getCity();
             }
         })
+
+
+        //-------------------------------------
+        // const removeBtn = document.getElementById("btn1");
+        // removeBtn.addEventListener("click", (e: Event) => this.removeCityWeather(e));
     }
 
     getCity(){
@@ -71,6 +98,7 @@ export class App {
         }
         for(let i=0; i<this.liczbaWywolan; i++){
             const item = JSON.parse(items[i]);
+            if(item!=null)
             this.getCityInfoFromLocalStorage(item.name);
         }
 
@@ -82,8 +110,9 @@ export class App {
     async getCityInfo(city: string) {
         const weather = await this.getWeather(city);
         //---tworzenie nowych elementow---
-        const newDiv = document.createElement("section");
+        const newDiv = document.createElement("div");
         newDiv.className = "weatherInfoBlock";
+        newDiv.id = "" +(this.liczbaWywolan+1);
         const newName = document.createElement("p");
         const newLastActualisation = document.createElement("p");
         const newDegrees = document.createElement("p");
@@ -91,6 +120,7 @@ export class App {
         const newImage = document.createElement("img");
         const newAirPressure = document.createElement("span");
         const newDegreesChar = document.createElement("p");
+        const newButton = document.createElement("button");
 
 
         //---uzupełnianie elementow danymi---
@@ -103,6 +133,8 @@ export class App {
         const srcImg =  `http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`;
         newImage.src = srcImg;
         newDegreesChar.innerHTML = "&ordm";
+        newButton.innerHTML = "X";
+        const idBtn = "btn"+(this.liczbaWywolan+1);
         //---dodawanie odpowiednich klas do stylowania---
         newName.classList.add("weatherInfoCity");
         newLastActualisation.classList.add("weatherInfoHour");
@@ -110,12 +142,14 @@ export class App {
         newAirPressureText.classList.add("weatherInfoPressure");
         newAirPressure.classList.add("pressureValue");
         newDegreesChar.classList.add("degrees");
+        newButton.classList.add("weatherButtonX");
 
         newName.classList.add("weatherCommon");
         newLastActualisation.classList.add("weatherCommon");
         newDegrees.classList.add("weatherCommon");
         newAirPressureText.classList.add("weatherCommon");
 
+        newButton.id=idBtn;
         //---wprowadzanie elementow na strone---
         const weatherBlock = document.getElementById("weatherBlocksID");
         weatherBlock.appendChild(newDiv);
@@ -126,7 +160,7 @@ export class App {
         newAirPressureText.appendChild(newAirPressure);
         newDiv.appendChild(newImage);
         newDegrees.appendChild(newDegreesChar);
-
+        newDiv.appendChild(newButton);
         //---czyszczenie inputu miasta---
         const inputCitySearch = <HTMLInputElement>document.getElementById("searchInp");
         inputCitySearch.value = "";
@@ -142,8 +176,9 @@ export class App {
         //console.log(icon);
 
         //---tworzenie nowych elementow---
-        const newDiv = document.createElement("section");
+        const newDiv = document.createElement("div");
         newDiv.className = "weatherInfoBlock";
+        newDiv.id = "" +(this.liczbaWywolan);
         const newName = document.createElement("p");
         const newLastActualisation = document.createElement("p");
         const newDegrees = document.createElement("p");
@@ -151,7 +186,7 @@ export class App {
         const newImage = document.createElement("img");
         const newAirPressure = document.createElement("span");
         const newDegreesChar = document.createElement("p");
-
+        const newButton = document.createElement("button");
 
         //---uzupełnianie elementow danymi---
         newName.innerHTML = weather.name;
@@ -163,6 +198,8 @@ export class App {
         const srcImg =  `http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`;
         newImage.src = srcImg;
         newDegreesChar.innerHTML = "&ordm";
+        newButton.innerHTML = "X";
+        const idBtn = "btn"+(this.liczbaWywolan+1);
         //---dodawanie odpowiednich klas do stylowania---
         newName.classList.add("weatherInfoCity");
         newLastActualisation.classList.add("weatherInfoHour");
@@ -170,12 +207,14 @@ export class App {
         newAirPressureText.classList.add("weatherInfoPressure");
         newAirPressure.classList.add("pressureValue");
         newDegreesChar.classList.add("degrees");
+        newButton.classList.add("weatherButtonX");
 
         newName.classList.add("weatherCommon");
         newLastActualisation.classList.add("weatherCommon");
         newDegrees.classList.add("weatherCommon");
         newAirPressureText.classList.add("weatherCommon");
 
+        newButton.id=idBtn;
         //---wprowadzanie elementow na strone---
         const weatherBlock = document.getElementById("weatherBlocksID");
         weatherBlock.appendChild(newDiv);
@@ -186,6 +225,7 @@ export class App {
         newAirPressureText.appendChild(newAirPressure);
         newDiv.appendChild(newImage);
         newDegrees.appendChild(newDegreesChar);
+        newDiv.appendChild(newButton);
 
         //---czyszczenie inputu miasta---
         const inputCitySearch = <HTMLInputElement>document.getElementById("searchInp");
@@ -193,6 +233,8 @@ export class App {
 
         //---zapis w pamieci localStorage---
         //this.saveData(weather);
+        this.liczbaWywolan++;
+        localStorage.setItem('liczbaWywolan', JSON.stringify(this.liczbaWywolan))
     }
 
 
@@ -204,11 +246,17 @@ export class App {
         //console.log(weatherData);
         return weatherData;
     }
+
     saveData(data: any) {
         this.liczbaWywolan++;
         localStorage.setItem('weatherData' + this.liczbaWywolan, JSON.stringify(data));
         localStorage.setItem('liczbaWywolan', JSON.stringify(this.liczbaWywolan))
     }
+
+    deleteData(data: any){
+        localStorage.removeItem(data);
+    }
+
     async getData() {
 
         //const values = { ...localStorage};
