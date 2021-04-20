@@ -2,23 +2,39 @@ export class App {
     opwApiKey = "99eb7e6cb81a838f7d22416630652f72";
     liczbaWywolan: number = 0;
 
+
     constructor() {
+        this.stickySearchInput();
         this.getLocalStorageNumberLines();
         this.getItemsFromLocalStorage();
-        //this.getData();
 
-        //this.getCityInfo('zakopane');
-        //this.getData();
-        //console.log(this.getData());
-        // const inputCityBtn = document.getElementById("buttonInp");
-        // inputCityBtn.addEventListener("click", (e: Event) => this.getCity());
-        // const inputCitySearch = document.getElementById("searchInp");
-        // inputCitySearch.addEventListener("keydown", (e) => {
-        //     if(e.key === 'Enter'){
-        //         this.getCity();
-        //     }
-        // })
+        setInterval(() => this.timedRefresh(), 200000);
+
         this.pressButtonOrClickMouse();
+    }
+
+    stickySearchInput(){
+        const search = document.getElementById("searchInputID");
+        const sticky = search.offsetTop;
+
+        if(window.pageYOffset>= sticky){
+            search.classList.add("sticky");
+        }else{
+            search.classList.remove("sticky");
+        }
+    }
+
+    timedRefresh() {
+        const weatherBlockCount = document.getElementById("weatherBlocksID").childElementCount;
+        console.log(weatherBlockCount);
+        for(let i=0; i<weatherBlockCount; i++){
+            const weatherBlock = document.getElementById("weatherBlocksID");
+            weatherBlock.removeChild(weatherBlock.lastChild);
+        }
+
+        this.getLocalStorageNumberLines();
+        this.getItemsFromLocalStorage();
+
     }
 
     pressButtonOrClickMouse(){
