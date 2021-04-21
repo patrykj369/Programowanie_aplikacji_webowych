@@ -1,14 +1,16 @@
+import {stickySearchInput} from './stickySearchInput';
+
 export class App {
     opwApiKey = "99eb7e6cb81a838f7d22416630652f72";
     liczbaWywolan: number = 0;
 
 
     constructor() {
-        this.liczbaWywolan =0;
-        this.stickySearchInput();
+        this.stickySearchI();
         this.getLocalStorageNumberLines();
         this.getItemsFromLocalStorage();
         this.getXCityWeather();
+        //this.popUpWindow();
 
         setInterval(() => this.timedRefresh(), 200000);
 
@@ -16,39 +18,35 @@ export class App {
     }
 
     getXCityWeather(){
-        window.onclick = (event: Event) => {
-            this.removeCityWeather(event);
-          }
-    }
+        const tmp = document.getElementById("clearButton");
+        tmp.addEventListener("click", function(){
+            const weatherBlockCount = document.getElementById("weatherBlocksID").childElementCount;
 
-    removeCityWeather(ev: Event){
-        const nazwa = ev.target as Element;
-        const nowa = nazwa.id;
-        if(nazwa.className==="weatherButtonX"){
-            const dousuniecia = nazwa.parentElement.id;
-            const usun = document.getElementById(dousuniecia);
-            //localStorage.
-            console.log(dousuniecia);
-            usun.remove();
+            for(let i=0; i<weatherBlockCount; i++){
+            const weatherBlock = document.getElementById("weatherBlocksID");
+            weatherBlock.removeChild(weatherBlock.lastChild);
+
+            localStorage.clear();
 
         }
-
+        });
     }
 
-    stickySearchInput(){
-        const search = document.getElementById("searchInputID");
-        const sticky = search.offsetTop;
+    // popUpWindow(){
+    //     const inputCityBtn = document.querySelector("moreInfo");
+    //     inputCityBtn.addEventListener("click", function(){
+    //         window.open('https://javascript.info/');
+    //     });
+    // }
 
-        if(window.pageYOffset>= sticky){
-            search.classList.add("sticky");
-        }else{
-            search.classList.remove("sticky");
-        }
+    stickySearchI(){
+        const tmp = new stickySearchInput();
+        tmp.stickySearch("searchInputID");
     }
 
     timedRefresh() {
         const weatherBlockCount = document.getElementById("weatherBlocksID").childElementCount;
-        console.log(weatherBlockCount);
+        //console.log(weatherBlockCount);
         for(let i=0; i<weatherBlockCount; i++){
             const weatherBlock = document.getElementById("weatherBlocksID");
             weatherBlock.removeChild(weatherBlock.lastChild);
@@ -68,8 +66,6 @@ export class App {
                 this.getCity();
             }
         })
-
-
         //-------------------------------------
         // const removeBtn = document.getElementById("btn1");
         // removeBtn.addEventListener("click", (e: Event) => this.removeCityWeather(e));
@@ -99,7 +95,7 @@ export class App {
         for(let i=0; i<this.liczbaWywolan; i++){
             const item = JSON.parse(items[i]);
             if(item!=null)
-            this.getCityInfoFromLocalStorage(item.name);
+            this.getCityInfoFromLocalStorage(item);
         }
 
         // const nowe = (await obiekty).values;
@@ -108,11 +104,12 @@ export class App {
 
 
     async getCityInfo(city: string) {
+
         const weather = await this.getWeather(city);
         //---tworzenie nowych elementow---
         const newDiv = document.createElement("div");
         newDiv.className = "weatherInfoBlock";
-        newDiv.id = "" +(this.liczbaWywolan+1);
+        newDiv.id = "" +this.liczbaWywolan;
         const newName = document.createElement("p");
         const newLastActualisation = document.createElement("p");
         const newDegrees = document.createElement("p");
@@ -120,8 +117,7 @@ export class App {
         const newImage = document.createElement("img");
         const newAirPressure = document.createElement("span");
         const newDegreesChar = document.createElement("p");
-        const newButton = document.createElement("button");
-
+        const newBtn = document.createElement("button");
 
         //---uzupełnianie elementow danymi---
         newName.innerHTML = weather.name;
@@ -133,8 +129,8 @@ export class App {
         const srcImg =  `http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`;
         newImage.src = srcImg;
         newDegreesChar.innerHTML = "&ordm";
-        newButton.innerHTML = "X";
-        const idBtn = "btn"+(this.liczbaWywolan+1);
+        newBtn.innerHTML = "More information";
+
         //---dodawanie odpowiednich klas do stylowania---
         newName.classList.add("weatherInfoCity");
         newLastActualisation.classList.add("weatherInfoHour");
@@ -142,14 +138,14 @@ export class App {
         newAirPressureText.classList.add("weatherInfoPressure");
         newAirPressure.classList.add("pressureValue");
         newDegreesChar.classList.add("degrees");
-        newButton.classList.add("weatherButtonX");
+        newBtn.classList.add("moreInfo");
+        newBtn.id = weather.name;
 
         newName.classList.add("weatherCommon");
         newLastActualisation.classList.add("weatherCommon");
         newDegrees.classList.add("weatherCommon");
         newAirPressureText.classList.add("weatherCommon");
 
-        newButton.id=idBtn;
         //---wprowadzanie elementow na strone---
         const weatherBlock = document.getElementById("weatherBlocksID");
         weatherBlock.appendChild(newDiv);
@@ -160,7 +156,7 @@ export class App {
         newAirPressureText.appendChild(newAirPressure);
         newDiv.appendChild(newImage);
         newDegrees.appendChild(newDegreesChar);
-        newDiv.appendChild(newButton);
+        newDiv.appendChild(newBtn);
         //---czyszczenie inputu miasta---
         const inputCitySearch = <HTMLInputElement>document.getElementById("searchInp");
         inputCitySearch.value = "";
@@ -169,16 +165,14 @@ export class App {
         this.saveData(weather);
     }
 
-    async getCityInfoFromLocalStorage(city: string) {
-        const weather = await this.getWeather(city);
+    async getCityInfoFromLocalStorage(item: any) {
+        const weather = await this.getWeather(item.name);
 
-        //const icon = weather.weather[0].icon;
-        //console.log(icon);
 
         //---tworzenie nowych elementow---
         const newDiv = document.createElement("div");
         newDiv.className = "weatherInfoBlock";
-        newDiv.id = "" +(this.liczbaWywolan);
+        newDiv.id = "" +this.liczbaWywolan;
         const newName = document.createElement("p");
         const newLastActualisation = document.createElement("p");
         const newDegrees = document.createElement("p");
@@ -186,7 +180,7 @@ export class App {
         const newImage = document.createElement("img");
         const newAirPressure = document.createElement("span");
         const newDegreesChar = document.createElement("p");
-        const newButton = document.createElement("button");
+        const newBtn = document.createElement("button");
 
         //---uzupełnianie elementow danymi---
         newName.innerHTML = weather.name;
@@ -198,8 +192,8 @@ export class App {
         const srcImg =  `http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`;
         newImage.src = srcImg;
         newDegreesChar.innerHTML = "&ordm";
-        newButton.innerHTML = "X";
-        const idBtn = "btn"+(this.liczbaWywolan+1);
+        newBtn.innerHTML = "More information";
+
         //---dodawanie odpowiednich klas do stylowania---
         newName.classList.add("weatherInfoCity");
         newLastActualisation.classList.add("weatherInfoHour");
@@ -207,14 +201,14 @@ export class App {
         newAirPressureText.classList.add("weatherInfoPressure");
         newAirPressure.classList.add("pressureValue");
         newDegreesChar.classList.add("degrees");
-        newButton.classList.add("weatherButtonX");
+        newBtn.classList.add("moreInfo");
+        newBtn.id = weather.name;
 
         newName.classList.add("weatherCommon");
         newLastActualisation.classList.add("weatherCommon");
         newDegrees.classList.add("weatherCommon");
         newAirPressureText.classList.add("weatherCommon");
 
-        newButton.id=idBtn;
         //---wprowadzanie elementow na strone---
         const weatherBlock = document.getElementById("weatherBlocksID");
         weatherBlock.appendChild(newDiv);
@@ -225,8 +219,7 @@ export class App {
         newAirPressureText.appendChild(newAirPressure);
         newDiv.appendChild(newImage);
         newDegrees.appendChild(newDegreesChar);
-        newDiv.appendChild(newButton);
-
+        newDiv.appendChild(newBtn);
         //---czyszczenie inputu miasta---
         const inputCitySearch = <HTMLInputElement>document.getElementById("searchInp");
         inputCitySearch.value = "";
@@ -243,13 +236,12 @@ export class App {
         const openWeatherUrl = `http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${this.opwApiKey}`;
         const weatherResponse = await fetch(openWeatherUrl);
         const weatherData = await weatherResponse.json();
-        //console.log(weatherData);
         return weatherData;
     }
 
     saveData(data: any) {
         this.liczbaWywolan++;
-        localStorage.setItem('weatherData' + this.liczbaWywolan, JSON.stringify(data));
+        localStorage.setItem("btn"+(this.liczbaWywolan), JSON.stringify(data));
         localStorage.setItem('liczbaWywolan', JSON.stringify(this.liczbaWywolan))
     }
 
@@ -258,39 +250,11 @@ export class App {
     }
 
     async getData() {
-
-        //const values = { ...localStorage};
         const items =[];
         const quantity = this.liczbaWywolan;
         for(let i = 1; i <= quantity; i++){
-            items[i-1] = localStorage.getItem('weatherData' + i);
+            items[i-1] = localStorage.getItem('btn' + i);
         }
-        //console.log(items);
         return items;
-
-        //const quantity = this.liczbaWywolan;
-        //console.log(quantity);
-        // const data = localStorage.getItem('weatherData' + i)
-
-        // let values = [],
-        //     keys = Object.keys(data),
-        //     i = keys.length;
-
-        //     while ( i-- ) {
-        //         values.push( localStorage.getItem(keys[i]) );
-        //     }
-        //     console.log(values);
-
-
-        // for(let i = 1; i <= quantity; i++){
-        //     const data = localStorage.getItem('weatherData' + i);
-        //     if (data) {
-        //         console.log(JSON.parse(data));
-        //         return JSON.parse(data);
-        //     } else {
-        //         return {};
-        //     }
-        // }
-
     }
 }
