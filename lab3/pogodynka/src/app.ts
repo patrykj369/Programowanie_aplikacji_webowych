@@ -10,11 +10,11 @@ export class App {
         this.getLocalStorageNumberLines();
         this.getItemsFromLocalStorage();
         this.getXCityWeather();
-        //this.popUpWindow();
+        // setTimeout(()=> this.popUpWindowStart(), 2000);
 
         setInterval(() => this.timedRefresh(), 200000);
-
         this.pressButtonOrClickMouse();
+
     }
 
     getXCityWeather(){
@@ -32,11 +32,18 @@ export class App {
         });
     }
 
+    // popUpWindowStart(){
+    //     const weatherBlockCount = document.getElementById("weatherBlocksID").childElementCount;
+    //     console.log(weatherBlockCount);
+    //     if(weatherBlockCount>0){
+    //         const inputCityBtn = document.querySelector('.moreInfo');
+    //         inputCityBtn.addEventListener("click", () => this.popUpWindow());
+    //     }
+
+    // }
+
     // popUpWindow(){
-    //     const inputCityBtn = document.querySelector("moreInfo");
-    //     inputCityBtn.addEventListener("click", function(){
-    //         window.open('https://javascript.info/');
-    //     });
+    //     console.log("dupa");
     // }
 
     stickySearchI(){
