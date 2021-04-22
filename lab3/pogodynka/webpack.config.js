@@ -34,7 +34,7 @@ module.exports = {
         loader: "file-loader",
       },
       {
-        test: /style\.s[ac]ss$/i,
+        test: /\.s[ac]ss$/i,
         use: [
           // Creates `style` nodes from JS strings
           {
