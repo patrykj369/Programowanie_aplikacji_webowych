@@ -13,6 +13,8 @@ export class App {
         this.spanClosedFn();
         setInterval(() => this.timedRefresh(), 200000);
         this.pressButtonOrClickMouse();
+
+        this.loadListenerExtendedWeather();
     }
 
     getXCityWeather(){
@@ -25,7 +27,6 @@ export class App {
             weatherBlock.removeChild(weatherBlock.lastChild);
 
             localStorage.clear();
-
         }
         });
     }
@@ -33,47 +34,80 @@ export class App {
     spanClosedFn(){
         const span1 = document.getElementById("spanFirst");
         const modal = document.getElementById("myModal");
+        const modal1 = document.getElementById("modal1");
 
         window.onclick = function(event: Event){
             if(event.target == modal || event.target == span1){
                 modal.style.display="none";
+                modal1.textContent = "";
             }
         }
 
     }
 
-    popUpWindow(e: Event){
-        const tmp = e.target as Element;
-        const id = tmp.id;
-        // const city = await this.getDailyWeather(id);
-        // console.log(id);
-
-        //const weather = await this.getWeather(tmp.id);
-
-        //-----------------------------------
-        const modal = document.getElementById('myModal');
-        // const div = document.createElement('div');
-        // const span1 = document.createElement('span');
-        // const p1 = document.createElement('p');
-
-        // div.classList.add("modal-content");
-        // span1.classList.add("close");
-
-        // span1.innerHTML = "&times";
-        // p1.innerHTML = weather.main.pressure;
-
-        // elem.appendChild(div);
-        // div.appendChild(span1);
-        // div.appendChild(p1);
-        modal.style.display = "block";
+    loadListenerExtendedWeather(){
+        document.body.addEventListener("click", (e:Event) => this.getValue(e));
     }
 
+
     getValue(e:Event){
-        // const tmp = e.target as Element;
-        // const id = tmp.id;
-        // const city = await this.getDailyWeather(id);
-        // console.log(id);
         console.log(e.target);
+            let nazwa = document.querySelector(".moreInfo");
+            const tmp = e.target as Element;
+        if(tmp.className == "moreInfo"){
+            setTimeout(async() => {
+                // const p1 = document.getElementById("someText");
+                const modal = document.getElementById('modal1');
+                const tmp = e.target as Element;
+
+                //if(tmp.id === 'Limanowa'){
+                    const city = await this.getDailyWeather(tmp.id);
+                for(let i=0; i<12; i++){
+                    const div = document.createElement('div');
+                    div.className = "hourWeather";
+                    const img = document.createElement('img');
+                    const p0 = document.createElement('p');
+                    const p1 = document.createElement('p');
+                    const p2 = document.createElement('p');
+                    const p3 = document.createElement('p');
+                    const p4 = document.createElement('p');
+
+                    console.log(city);
+                    const srcImg =  `http://openweathermap.org/img/wn/${city.hourly[i].weather[0].icon}@2x.png`;
+                    img.src = srcImg;
+
+                    p0.innerHTML = city.hourly[i].weather[0].main;
+                    p1.innerHTML = "Temperature: " + Math.round(city.hourly[i].temp-273.15).toString() + "&ordm C";
+                    p2.innerHTML = "Pressure: " + city.hourly[i].pressure + " hPa";
+                    p3.innerHTML = "Humidity: " + city.hourly[i].humidity + "%";
+
+                    const data = new Date(city.hourly[i].dt*1000);
+
+                    if(data.getHours().toString().length > 1){
+                        p4.innerHTML = data.getHours().toString() + ":00";
+                    }else{
+                        p4.innerHTML = "0"+data.getHours().toString() + ":00";
+                    }
+
+                    div.appendChild(img);
+                    div.appendChild(p0);
+                    div.appendChild(p1);
+                    div.appendChild(p2);
+                    div.appendChild(p3);
+                    div.appendChild(p4);
+
+                    modal.appendChild(div);
+                }
+
+                //}
+                }, 50);
+        }
+
+    }
+
+    popUpWindow(e: Event){
+        const modal = document.getElementById('myModal');
+        modal.style.display = "block";
     }
 
     stickySearchI(){
@@ -272,8 +306,9 @@ export class App {
     async getDailyWeather(city: string): Promise<any>{
         const cityName = await this.getWeather(city);
         //const cityN = JSON.parse(cityName);
-        const lat = cityName.coord.lat;
-        const lon = cityName.coord.lon;
+
+        const lat = await cityName.coord.lat;
+        const lon = await cityName.coord.lon;
         const daily = "daily";
         const openWeatherUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=${daily}&appid=${this.opwApiKey}`;
         const weatherResponse = await fetch(openWeatherUrl);
