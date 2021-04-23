@@ -51,8 +51,7 @@ export class App {
 
 
     getValue(e:Event){
-        console.log(e.target);
-            let nazwa = document.querySelector(".moreInfo");
+            //let nazwa = document.querySelector(".moreInfo");
             const tmp = e.target as Element;
         if(tmp.className == "moreInfo"){
             setTimeout(async() => {
