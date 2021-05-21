@@ -5,12 +5,9 @@ html{
   background-attachment: fixed;
   box-sizing: border-box;
 }
-//rgba(102, 158, 241, 0.39), rgba(195, 240, 34, 0.39)
 
 body {
-  //height: 100vh;
   box-sizing: border-box;
-  overflow: auto;
   padding: 0;
   margin: auto;
   display: flex;
@@ -20,25 +17,26 @@ body {
 }
 
 .searchInput{
-  overflow: hidden;
-  margin: 0 140px;
+  justify-content: center;
   z-index: 1;
   display: grid;
-  grid-template-columns: 500px 40px;
-  
+  grid-template-columns: 50vw 40px;
+
+
     #searchInp{
       grid-column: 1;
       margin-top: 50px;
-      width: 500px;
+      width: 50vw;
       height: 40px;
       border: none;
       text-align: center;
       font-size: 20px;
       outline: none;
+      border-bottom: 1px solid rgb(223, 223, 43);
     }
 
     #buttonInp{
-      margin-top: 50px;
+      margin-top: 51px;
       grid-column: 2;
       border: none;
       width: 40px;
@@ -49,6 +47,7 @@ body {
       background-position: center;
       outline: none;
       transition: background-color 1s;
+      border-bottom: 1px solid rgb(223, 223, 43);
     }
 
     #buttonInp:hover{
@@ -57,15 +56,19 @@ body {
 }
 
 .notesList{
+  width: 80vw;
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0 auto;
 }
 
 .notesContent{
   width: 30rem;
-  border: 1px solid #fff;
   background-color: #fff;
   border: 1px solid rgb(223, 223, 43);
   border-radius: 10px 10px 0 0;
+  margin-bottom: 30px;
 }
 
 .topBarNotes{
