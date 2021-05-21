@@ -6,29 +6,36 @@
     <title>Pogodynka</title>
   </head>
   <body>
-    <p class="signatureBackground">Photo by Tahir Shaw from Pexels</p>
-    <button id="clearButton" class="buttonClear">Clear weather</button>
-
     <main>
       <section class="searchInput" id="searchInputID">
-        <input id="searchInp" type="text" placeholder="Search weather for city..."/>
+        <input id="searchInp" type="text" placeholder="SEARCH"/>
         <input id="buttonInp" type="button"/>
       </section>
 
-      <section class="weatherBlocks" id="weatherBlocksID">
+      <section class="content">
+        <div class="topBar">
+          <h1>Notes</h1>
+          <h3>1 notes</h3>
+        </div>
+        <div class="notesList">
+        <div class="notesContent">
+          <div class="topBarNotes">
+            <h1>Tytuł notatki bedzie tu wpisany </h1>
+            <p>1 day</p>
+          </div>
+          <div class="contentDivNotes">
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+              Itaque facilis saepe dignissimos hic at praesentium esse debitis molestias cupiditate. 
+              Unde nobis facilis inventore temporibus?
+            </p>
+          </div>
+          <div class="footerNotes">
+            <button class="button">REMOVE</button>
+          </div>
+        </div>
+      </div>
       </section>
     </main>
-
-    <div id="myModal" class="modal">
-      <div id="inModal" class="modal-content">
-        <span id="spanFirst" class="close">&times;</span>
-        <h3>12-hours weather</h3>
-      <div id="modal1">
-
-      </div>
-
-      </div>
-    </div>
 
     <script src="index.js"></script>
 
