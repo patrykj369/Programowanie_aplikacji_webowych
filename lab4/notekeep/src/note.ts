@@ -18,7 +18,6 @@ export class Note{
         window.onclick = function(event: Event){
             if(event.target == modal || event.target == span1){
                 modal.style.display="none";
-                modal1.textContent = "";
             }
         }
     }
