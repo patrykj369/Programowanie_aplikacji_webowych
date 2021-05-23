@@ -33,6 +33,8 @@ export class Note{
     }
 
     saveNote(){
+
+        //dorobic zapisywanie wybranego koloru
         const titleInp = document.getElementById('titleInp') as HTMLInputElement;
         const contentInp = document.getElementById('contentInp') as HTMLInputElement;
         const btn_click_yellow = document.getElementById('btn_yellow_click') as HTMLInputElement;
