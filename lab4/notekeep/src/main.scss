@@ -194,11 +194,28 @@ body {
     border: 1px solid rgb(223, 223, 43);
   }
 
+  .checkboxList{
+    display: flex;
+    justify-content: center;
+  }
+
+  .checkbox{
+    width: 20px;
+    height: 25px;
+    border-radius: 50%;
+    border: none;
+    opacity: 0;
+    margin-top: 0;
+    margin-left: 3px;
+    cursor: pointer;
+  }
+
   .btn_color{
     width: 25px;
     height: 25px;
     border-radius: 50%;
     border: none;
+    margin: 0 5px;
   }
 
   .btn_color:hover{
@@ -208,6 +225,7 @@ body {
 
   #btn_yellow{
     background-color: yellow;
+    //visibility: hidden;
   }
 
   #btn_green{

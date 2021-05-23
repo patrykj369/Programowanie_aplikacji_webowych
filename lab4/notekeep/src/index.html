@@ -53,15 +53,26 @@
           <p>Content (max. 500 letters)</p>
           <textarea id="contentInp" class="inputContent" rows="10"></textarea>
           <p>Note color</p>
-          <div>
-            <button id="btn_yellow" class="btn_color"></button>
-            <button id="btn_green" class="btn_color"></button>
-            <button id="btn_red" class="btn_color"></button>
-            <button id="btn_pink" class="btn_color"></button>
-            <button id="btn_blue" class="btn_color"></button>
+          <div class="checkboxList">
+            <div id="btn_yellow" class="btn_color">
+              <input type="checkbox" class="checkbox" id="btn_yellow_click">
+            </div>
+            <div id="btn_green" class="btn_color">
+              <input type="checkbox" class="checkbox" id="btn_green_click">
+            </div>
+            <div id="btn_red" class="btn_color">
+              <input type="checkbox" class="checkbox" id="btn_red_click">
+            </div>
+            <div id="btn_pink" class="btn_color">
+              <input type="checkbox" class="checkbox" id="btn_pink_click">
+            </div>
+            <div id="btn_blue" class="btn_color">
+              <input type="checkbox" class="checkbox" id="btn_blue_click">
+            </div>
           </div>
 
-          <button class="button btn_save">SAVE NOTE</button>
+          <button id="buttonSaveNote" class="button btn_save">SAVE NOTE</button>
+
         </div>
       </div>
     </div>

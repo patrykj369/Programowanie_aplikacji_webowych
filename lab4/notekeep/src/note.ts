@@ -1,11 +1,14 @@
+import {IAppStorage} from '../src/interfaces/IAppStorage';
+import {AppStorage} from './appStorage'
+
 export class Note{
 
     constructor(){
         this.closeNoteWindow();
+        this.buttonSaveClick();
     }
 
     openNoteWindow(){
-        console.log("dupa");
         const modal = document.getElementById('myModal');
         modal.style.display = "block";
     }
@@ -13,14 +16,64 @@ export class Note{
     closeNoteWindow(){
         const span1 = document.getElementById("spanFirst");
         const modal = document.getElementById("myModal");
-        const modal1 = document.getElementById("modal1");
+        const btn_save = document.getElementById("buttonSaveNote");
 
-        window.onclick = function(event: Event){
-            if(event.target == modal || event.target == span1){
+
+        window.onclick = (event: Event) =>{
+            if(event.target == modal || event.target == span1 || event.target == btn_save){
                 modal.style.display="none";
+                this.clearForm();
             }
         }
     }
 
+    buttonSaveClick(){
+        const btn_save = document.getElementById('buttonSaveNote');
+        btn_save.addEventListener("click", () => this.saveNote());
+    }
 
+    saveNote(){
+        const titleInp = document.getElementById('titleInp') as HTMLInputElement;
+        const contentInp = document.getElementById('contentInp') as HTMLInputElement;
+        const btn_click_yellow = document.getElementById('btn_yellow_click') as HTMLInputElement;
+        const btn_click_green = document.getElementById('btn_green_click') as HTMLInputElement;
+        const btn_click_red = document.getElementById('btn_red_click') as HTMLInputElement;
+        const btn_click_pink = document.getElementById('btn_pink_click') as HTMLInputElement;
+        const btn_click_blue = document.getElementById('btn_blue_click') as HTMLInputElement;
+
+        console.log(btn_click_blue.checked);
+        console.log(titleInp.value);
+
+        const obiekt: IAppStorage = {
+            title: titleInp.value,
+            content: contentInp.value,
+            color_note: "#fff",
+            date_note: new Date().toDateString(),
+            pinned: false,
+        }
+
+        const app = new AppStorage();
+
+        app.saveData(obiekt);
+
+        this.clearForm();
+    }
+
+    clearForm(){
+        const titleInp = document.getElementById('titleInp') as HTMLInputElement;
+        const contentInp = document.getElementById('contentInp') as HTMLInputElement;
+        const btn_click_yellow = document.getElementById('btn_yellow_click') as HTMLInputElement;
+        const btn_click_green = document.getElementById('btn_green_click') as HTMLInputElement;
+        const btn_click_red = document.getElementById('btn_red_click') as HTMLInputElement;
+        const btn_click_pink = document.getElementById('btn_pink_click') as HTMLInputElement;
+        const btn_click_blue = document.getElementById('btn_blue_click') as HTMLInputElement;
+
+        titleInp.value = "";
+        contentInp.value = "";
+        btn_click_yellow.checked = false;
+        btn_click_green.checked = false;
+        btn_click_red.checked = false;
+        btn_click_pink.checked = false;
+        btn_click_blue.checked = false;
+    }
 }
