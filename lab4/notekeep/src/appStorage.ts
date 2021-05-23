@@ -5,10 +5,10 @@ export class AppStorage{
 
     saveData(data: IAppStorage) {
         //this.liczbaWywolan++;
-        const tmp = localStorage.getItem('notes');
-        if(tmp != null){
-            const ob = JSON.parse(tmp);
-            this.notes.push(ob);
+        const dataFromStorage = localStorage.getItem('notes');
+        if(dataFromStorage != null){
+            const actuallyData = JSON.parse(dataFromStorage);
+            this.notes.push(actuallyData);
 
             this.notes.push(data);
 

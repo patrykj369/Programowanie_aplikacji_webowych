@@ -41,8 +41,7 @@ export class Note{
         const btn_click_pink = document.getElementById('btn_pink_click') as HTMLInputElement;
         const btn_click_blue = document.getElementById('btn_blue_click') as HTMLInputElement;
 
-        console.log(btn_click_blue.checked);
-        console.log(titleInp.value);
+        const selectedColor  = "";
 
         const obiekt: IAppStorage = {
             title: titleInp.value,
