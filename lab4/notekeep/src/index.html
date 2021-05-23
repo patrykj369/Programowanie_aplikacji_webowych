@@ -48,10 +48,20 @@
           <span id="spanFirst" class="close">&times;</span>
           <h1>Add new note</h1>
         <div id="modal1">
-          <p>Title</p>
-          <input type="text">
-          <p>Content</p>
-          <input type="textarea">
+          <p>Title (max. 40 letters)</p>
+          <input id="titleInp" type="text" class="inputTitle">
+          <p>Content (max. 500 letters)</p>
+          <textarea id="contentInp" class="inputContent" rows="10"></textarea>
+          <p>Note color</p>
+          <div>
+            <button id="btn_yellow" class="btn_color"></button>
+            <button id="btn_green" class="btn_color"></button>
+            <button id="btn_red" class="btn_color"></button>
+            <button id="btn_pink" class="btn_color"></button>
+            <button id="btn_blue" class="btn_color"></button>
+          </div>
+
+          <button class="button btn_save">SAVE NOTE</button>
         </div>
       </div>
     </div>
