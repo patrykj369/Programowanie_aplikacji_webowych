@@ -4,7 +4,6 @@ export class AppStorage{
     notes: IAppStorage[] = [];
 
     saveData(data: IAppStorage) {
-        //this.liczbaWywolan++;
         const dataFromStorage = localStorage.getItem('notes');
         if(dataFromStorage != null){
             const actuallyData = JSON.parse(dataFromStorage);
@@ -24,12 +23,12 @@ export class AppStorage{
         localStorage.removeItem(data);
     }
 
-    // async getData() {
-    //     const items =[];
-    //     const quantity = this.liczbaWywolan;
-    //     for(let i = 1; i <= quantity; i++){
-    //         items[i-1] = localStorage.getItem('btn' + i);
-    //     }
-    //     return items;
-    // }
+    async getData() {
+        const items:IAppStorage[] = [];
+        const dataFromStorage = localStorage.getItem('notes');
+        const actuallyData = JSON.parse(dataFromStorage);
+        items.push(actuallyData);
+
+        return items;
+    }
 }

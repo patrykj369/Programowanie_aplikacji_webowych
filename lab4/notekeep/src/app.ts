@@ -1,9 +1,11 @@
 import {Note} from './note';
+import {Notes} from './notes';
 
 export class App {
 
     constructor() {
         this.addNewNote();
+        this.getNotes();
     }
 
     //metoda do wyszukiwania z inputu
@@ -16,5 +18,11 @@ export class App {
         const btnNote = document.getElementById('addNoteButton');
         const fc = new Note();
         btnNote.addEventListener("click", fc.openNoteWindow);
+    }
+
+    async getNotes(){
+        const tmp = new Notes();
+        const x = await tmp.getNotesContent();
+        console.log(x);
     }
 }
