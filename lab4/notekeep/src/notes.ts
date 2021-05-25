@@ -11,7 +11,9 @@ export class Notes{
         const allData = await data.getData();
         //console.log(allData);
 
-        // dorobic dodawanie rzeczy na strone
-        return allData;
+        const h1 = document.createElement("h1");
+        h1.textContent = allData[0].title;
+        document.body.appendChild(h1);
+        //return allData;
     }
 }
