@@ -154,6 +154,17 @@ body {
   background-color: transparent;
 }
 
+.buttonPinPress:hover{
+  width: 20px;
+  height: 20px;
+  background-image: url("./icons/pin.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  border: none;
+  background-color: transparent;
+}
+
 //okno popup do dodawania nowej notatki
 .modal {
   display: none;

@@ -27,7 +27,6 @@ export class AppStorage{
     }
 
     deleteData(data: any){
-
         localStorage.removeItem(data);
     }
 
@@ -40,9 +39,10 @@ export class AppStorage{
     }
 
     async localStorageLength(){
-        const dataFromStorage = await localStorage.getItem('notes');
-        const actuallyData = JSON.parse(dataFromStorage);
+        // const dataFromStorage = await localStorage.getItem('notes');
+        // const actuallyData = JSON.parse(dataFromStorage);
         //console.log(actuallyData.length);
+        const actuallyData = await this.getData();
         if(actuallyData === null){
             return 0;
         }else{

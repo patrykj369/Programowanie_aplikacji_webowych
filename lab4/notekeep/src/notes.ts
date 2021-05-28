@@ -32,31 +32,59 @@ export class Notes{
 
             buttonPin.addEventListener("click", async (e: any) => {
                 const idNumber = parseInt(((e.target as Element).id).replace('pin', ''));
-
-                const elem = document.getElementById("note"+idNumber);
-
-                const elemDestination = document.getElementById("notesPinnedID");
-
-                elemDestination.appendChild(elem);
-
-                const btn = document.getElementById("pin"+idNumber);
-                btn.classList.remove("buttonPin");
-                btn.classList.add("buttonPinPress");
-
-                //const x = parseInt(((e.target as Element).id).replace('remove', ''));
-
-                const dataFromLocalStorage = await data.getData();
+                const dataFromLocalStorage1 = await data.getData();
+                const dataFromLocalStorage = dataFromLocalStorage1.sort();
                 const z = dataFromLocalStorage.find((el: any) => el.id === idNumber)
-                z.pinned = true;
-                const notes: IAppStorage[] = [];
-                notes.push(z);
-                const y = dataFromLocalStorage.indexOf(z);
-                dataFromLocalStorage.splice(y, 1);
-                dataFromLocalStorage.map((x:any) => {
-                    notes.push(x);
-                })
 
-                data.saveDataAfterDeleteElement(notes);
+                if(z.pinned){
+                    const elem = document.getElementById("note"+idNumber);
+                    const elemDestination = document.getElementById("notesListID");
+                    elemDestination.appendChild(elem);
+                    const btn = document.getElementById("pin"+idNumber);
+                    btn.classList.remove("buttonPinPress");
+                    btn.classList.add("buttonPin");
+
+                    z.pinned = false;
+
+                    const notes: IAppStorage[] = [];
+
+                    const y = dataFromLocalStorage.indexOf(z);
+                    dataFromLocalStorage.splice(y, 1);
+                    dataFromLocalStorage.map((x:any) => {
+                        notes.push(x);
+                    })
+
+                    notes.push(z);
+                    data.saveDataAfterDeleteElement(notes);
+
+                }else{
+                    const elem = document.getElementById("note"+idNumber);
+
+
+                    const elemDestination = document.getElementById("notesPinnedID");
+
+                    elemDestination.appendChild(elem);
+
+                    const btn = document.getElementById("pin"+idNumber);
+                    btn.classList.remove("buttonPin");
+                    btn.classList.add("buttonPinPress");
+
+                    //const x = parseInt(((e.target as Element).id).replace('remove', ''));
+
+                    z.pinned = true;
+                    const notes: IAppStorage[] = [];
+
+                    const y = dataFromLocalStorage.indexOf(z);
+                    dataFromLocalStorage.splice(y, 1);
+                    dataFromLocalStorage.map((x:any) => {
+                        notes.push(x);
+                    })
+
+                    notes.push(z);
+                    data.saveDataAfterDeleteElement(notes);
+                }
+
+
             })
 
             const h1 = document.createElement("h1");
