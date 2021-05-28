@@ -22,5 +22,7 @@ export class App {
 
     async getNotes(){
         const tmp = new Notes();
+        tmp.getNotesContent();
     }
+
 }
