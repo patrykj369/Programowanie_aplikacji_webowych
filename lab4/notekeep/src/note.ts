@@ -56,12 +56,13 @@ export class Note{
         }
 
         const app = new AppStorage();
-        const app2 = new App();
+
         //const clearNotesContent = new Notes();
 
         app.saveData(obiekt);
 
         this.clearNotes();
+        const app2 = new App();
 
         this.clearForm();
     }
@@ -86,6 +87,7 @@ export class Note{
 
     clearNotes(){
         const notes = document.getElementById("notesListID");
-        notes.textContent = "";
+        notes.innerHTML = "";
+        console.log(notes);
     }
 }

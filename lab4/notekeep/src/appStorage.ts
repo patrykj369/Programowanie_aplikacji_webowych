@@ -9,7 +9,7 @@ export class AppStorage{
             const actuallyData = JSON.parse(dataFromStorage);
 
             actuallyData.map((x:any)=> this.notes.push(x))
-            
+
             //this.notes.push(actuallyData);
 
             this.notes.push(data);
@@ -33,5 +33,12 @@ export class AppStorage{
         const x = actuallyData;
         console.log(x);
         return x;
+    }
+
+    async localStorageLength(){
+        const dataFromStorage = await localStorage.getItem('notes');
+        const actuallyData = JSON.parse(dataFromStorage);
+        console.log(actuallyData.length);
+        return actuallyData.length;
     }
 }

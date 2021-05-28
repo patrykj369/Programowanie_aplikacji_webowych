@@ -2,6 +2,10 @@ import {AppStorage} from './appStorage';
 
 export class Notes{
 
+    constructor(){
+        this.getAllNotesNumber();
+    }
+
     async getNotesContent(){
         const data = new AppStorage();
         const allData = await data.getData();
@@ -52,9 +56,23 @@ export class Notes{
             const notesListId = document.getElementById("notesListID");
             notesListId.appendChild(noteDiv);
         })
-
-
         //return allData;
+    }
+
+    async getAllNotesNumber(){
+        const data = new AppStorage();
+        const elem = document.getElementById("allNotesCount");
+        try{
+            const x = (await data.localStorageLength()).toString();
+            if(x === '1'){
+                elem.innerHTML = x + " note";
+            }else{
+                elem.innerHTML = x + " notes";
+            }
+
+        }catch(e){
+
+        }
     }
 
 }
