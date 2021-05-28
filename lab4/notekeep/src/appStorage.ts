@@ -10,17 +10,20 @@ export class AppStorage{
 
             actuallyData.map((x:any)=> this.notes.push(x))
 
-            //this.notes.push(actuallyData);
-
-            this.notes.push(data);
-
-            localStorage.setItem("notes", JSON.stringify(this.notes));
+            if(data.title != ""){
+                this.notes.push(data);
+                localStorage.setItem("notes", JSON.stringify(this.notes));
+            }
 
         }else{
             this.notes.push(data);
             localStorage.setItem("notes", JSON.stringify(this.notes));
         }
 
+    }
+
+    saveDataAfterDeleteElement(data: any){
+        localStorage.setItem("notes", JSON.stringify(data));
     }
 
     deleteData(data: any){
@@ -31,14 +34,19 @@ export class AppStorage{
         const dataFromStorage = localStorage.getItem('notes');
         const actuallyData = JSON.parse(dataFromStorage);
         const x = actuallyData;
-        console.log(x);
+       //console.log(x);
         return x;
     }
 
     async localStorageLength(){
         const dataFromStorage = await localStorage.getItem('notes');
         const actuallyData = JSON.parse(dataFromStorage);
-        console.log(actuallyData.length);
-        return actuallyData.length;
+        //console.log(actuallyData.length);
+        if(actuallyData === null){
+            return 0;
+        }else{
+           return actuallyData.length;
+        }
+
     }
 }

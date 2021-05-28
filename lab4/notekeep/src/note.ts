@@ -34,7 +34,7 @@ export class Note{
         btn_save.addEventListener("click", () => this.saveNote());
     }
 
-    saveNote(){
+    async saveNote(){
 
         //dorobic zapisywanie wybranego koloru
         const titleInp = document.getElementById('titleInp') as HTMLInputElement;
@@ -45,19 +45,42 @@ export class Note{
         const btn_click_pink = document.getElementById('btn_pink_click') as HTMLInputElement;
         const btn_click_blue = document.getElementById('btn_blue_click') as HTMLInputElement;
 
-        const selectedColor  = "";
+        let selectedColor  = "";
 
-        const obiekt: IAppStorage = {
-            title: titleInp.value,
-            content: contentInp.value,
-            color_note: "#fff",
-            date_note: new Date().toDateString(),
-            pinned: false,
+        if(btn_click_green.checked){
+            selectedColor  = "green";
+        }else if(btn_click_yellow.checked){
+            selectedColor  = "yellow";
+        }else if(btn_click_red.checked){
+            selectedColor  = "red";
+        }else if(btn_click_pink.checked){
+            selectedColor  = "pink";
+        }else if(btn_click_blue.checked){
+            selectedColor  = "royalblue";
+        }else{
+            selectedColor  = "yellow";
         }
 
         const app = new AppStorage();
+        const identyfikator: number = parseInt(await app.localStorageLength());
+        const allItems = await app.getData();
+        let lastItem:number = 0;
 
-        //const clearNotesContent = new Notes();
+        if(allItems != null){
+            lastItem = allItems[identyfikator-1].id;
+        }else{
+            lastItem = 0;
+        }
+
+
+        const obiekt: IAppStorage = {
+            id: (lastItem+1),
+            title: titleInp.value,
+            content: contentInp.value,
+            color_note: selectedColor,
+            date_note: new Date().toDateString(),
+            pinned: false,
+        }
 
         app.saveData(obiekt);
 
@@ -88,6 +111,6 @@ export class Note{
     clearNotes(){
         const notes = document.getElementById("notesListID");
         notes.innerHTML = "";
-        console.log(notes);
+        //console.log(notes);
     }
 }

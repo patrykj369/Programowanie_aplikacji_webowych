@@ -1,4 +1,5 @@
 export interface IAppStorage{
+    id: number;
     title: string;
     content: string;
     color_note: string;
