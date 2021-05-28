@@ -4,9 +4,10 @@ export class Notes{
 
     constructor(){
         this.getNotesContent();
+
     }
 
-    async getNotesContent(){
+    public async getNotesContent(){
         const data = new AppStorage();
         const allData = await data.getData();
         //console.log(allData);

@@ -23,6 +23,6 @@ export class App {
     async getNotes(){
         const tmp = new Notes();
         const x = await tmp.getNotesContent();
-        console.log(x);
+
     }
 }
