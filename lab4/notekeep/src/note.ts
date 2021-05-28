@@ -1,5 +1,7 @@
 import {IAppStorage} from '../src/interfaces/IAppStorage';
+import { App } from './app';
 import {AppStorage} from './appStorage'
+import { Notes } from './notes';
 
 export class Note{
 
@@ -54,8 +56,12 @@ export class Note{
         }
 
         const app = new AppStorage();
+        const app2 = new App();
+        //const clearNotesContent = new Notes();
 
         app.saveData(obiekt);
+
+        this.clearNotes();
 
         this.clearForm();
     }
@@ -76,5 +82,10 @@ export class Note{
         btn_click_red.checked = false;
         btn_click_pink.checked = false;
         btn_click_blue.checked = false;
+    }
+
+    clearNotes(){
+        const notes = document.getElementById("notesListID");
+        notes.textContent = "";
     }
 }
