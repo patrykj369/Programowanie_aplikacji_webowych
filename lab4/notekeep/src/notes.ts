@@ -11,9 +11,12 @@ export class Notes{
         const allData = await data.getData();
         //console.log(allData);
 
-        const h1 = document.createElement("h1");
-        h1.textContent = allData[0].title;
-        document.body.appendChild(h1);
+        allData.map((x:any)=> {
+            const h1 = document.createElement("h1");
+            h1.textContent = x.title;
+            document.body.appendChild(h1);
+        })
+        
         //return allData;
     }
 }
