@@ -1,4 +1,5 @@
 import {AppStorage} from './appStorage';
+import { IAppStorage } from "./interfaces/IAppStorage";
 import {App} from './app';
 import {Note} from './note';
 
@@ -27,6 +28,36 @@ export class Notes{
 
             const buttonPin = document.createElement("button");
             buttonPin.classList.add("buttonPin");
+            buttonPin.id = "pin"+x.id;
+
+            buttonPin.addEventListener("click", async (e: any) => {
+                const idNumber = parseInt(((e.target as Element).id).replace('pin', ''));
+
+                const elem = document.getElementById("note"+idNumber);
+
+                const elemDestination = document.getElementById("notesPinnedID");
+
+                elemDestination.appendChild(elem);
+
+                const btn = document.getElementById("pin"+idNumber);
+                btn.classList.remove("buttonPin");
+                btn.classList.add("buttonPinPress");
+
+                //const x = parseInt(((e.target as Element).id).replace('remove', ''));
+
+                const dataFromLocalStorage = await data.getData();
+                const z = dataFromLocalStorage.find((el: any) => el.id === idNumber)
+                z.pinned = true;
+                const notes: IAppStorage[] = [];
+                notes.push(z);
+                const y = dataFromLocalStorage.indexOf(z);
+                dataFromLocalStorage.splice(y, 1);
+                dataFromLocalStorage.map((x:any) => {
+                    notes.push(x);
+                })
+
+                data.saveDataAfterDeleteElement(notes);
+            })
 
             const h1 = document.createElement("h1");
             h1.textContent = x.title;
@@ -55,11 +86,15 @@ export class Notes{
                 const z = dataFromLocalStorage.find((el: any) => el.id === x)
                 const y = dataFromLocalStorage.indexOf(z);
                 dataFromLocalStorage.splice(y, 1);
-                //console.log(y);
+
                 data.saveDataAfterDeleteElement(dataFromLocalStorage);
                 const note = new Note;
+
+                note.clearPinnedNotes();
                 note.clearNotes();
+
                 const app = new App();
+
             })
 
             noteDiv.appendChild(topBarDiv);
@@ -76,7 +111,17 @@ export class Notes{
             footer.appendChild(buttonRemove);
 
             const notesListId = document.getElementById("notesListID");
-            notesListId.appendChild(noteDiv);
+            const notesPinnedId = document.getElementById("notesPinnedID");
+
+            if(x.pinned){
+                notesPinnedId.appendChild(noteDiv);
+                const btn = document.getElementById("pin"+x.id);
+                btn.classList.remove("buttonPin");
+                btn.classList.add("buttonPinPress");
+            }else{
+                notesListId.appendChild(noteDiv);
+            }
+
         })
         }catch(e){
             console.log(e);

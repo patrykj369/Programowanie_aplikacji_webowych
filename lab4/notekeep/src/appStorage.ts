@@ -27,6 +27,7 @@ export class AppStorage{
     }
 
     deleteData(data: any){
+
         localStorage.removeItem(data);
     }
 

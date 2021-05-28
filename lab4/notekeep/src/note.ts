@@ -66,7 +66,7 @@ export class Note{
         const allItems = await app.getData();
         let lastItem:number = 0;
 
-        if(allItems != null){
+        if(allItems != null && allItems.length > 0){
             lastItem = allItems[identyfikator-1].id;
         }else{
             lastItem = 0;
@@ -85,6 +85,7 @@ export class Note{
         app.saveData(obiekt);
 
         this.clearNotes();
+        this.clearPinnedNotes()
         const app2 = new App();
 
         this.clearForm();
@@ -112,5 +113,10 @@ export class Note{
         const notes = document.getElementById("notesListID");
         notes.innerHTML = "";
         //console.log(notes);
+    }
+
+    clearPinnedNotes(){
+        const notes = document.getElementById("notesPinnedID");
+        notes.innerHTML = "";
     }
 }
