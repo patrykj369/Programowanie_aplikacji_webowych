@@ -1,4 +1,4 @@
-import {IAppStorage} from '../src/interfaces/IAppStorage';
+import {IAppStorage} from './interfaces/IAppStorage';
 import { App } from './app';
 import {AppStorage} from './appStorage'
 import { Notes } from './notes';
@@ -67,7 +67,12 @@ export class Note{
         let lastItem:number = 0;
 
         if(allItems != null && allItems.length > 0){
-            lastItem = allItems[identyfikator-1].id;
+            //lastItem = allItems[identyfikator-1].id;
+            allItems.map((item:IAppStorage) => {
+                if(lastItem<=item.id){
+                    lastItem = item.id;
+                }
+            })
         }else{
             lastItem = 0;
         }
