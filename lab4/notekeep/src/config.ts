@@ -7,3 +7,6 @@ export const firebaseConfig = {
     appId: "1:432341150073:web:e71b33d67bcedd710667a8"
   };
 
+
+//true -> firebase, false -> localstorage
+export const switchAppMode: boolean = true;

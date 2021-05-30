@@ -3,26 +3,29 @@ import {firebaseConfig} from './config';
 import { IAppStorage } from './interfaces/IAppStorage';
 
 export class AppFirestoreStorage{
-    firebaseApp = firebase.initializeApp(firebaseConfig);
-    db = this.firebaseApp.firestore();
+    firebaseApp: any; //firebase.initializeApp(firebaseConfig);
+    db: any; // =  this.firebaseApp.firestore();
 
-    constructor() {
-        this.addNote();
+    constructor(){
+
+        if (!firebase.apps.length) {
+            this.firebaseApp = firebase.initializeApp(firebaseConfig);
+            this.db = this.firebaseApp.firestore();
+        }else{
+            this.firebaseApp = firebase.app();
+            this.db = this.firebaseApp.firestore();
+        }
     }
 
-    async addNote(){
 
-        const note: IAppStorage = {
-            id: 1,
-            title: 'notatka z kompa',
-            content: 'content z kompa',
-            color_note: 'green',
-            date_note: new Date().toDateString(),
-            pinned: false
-        }
+    // constructor() {
+    //     this.addNote();
+    // }
+
+    async addNote(note: IAppStorage){
 
         const res = await this.db.collection('notes').add(note);
-        console.log(res);
+
     }
 }
 
