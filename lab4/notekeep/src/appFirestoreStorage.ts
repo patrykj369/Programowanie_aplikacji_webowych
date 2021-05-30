@@ -17,15 +17,16 @@ export class AppFirestoreStorage{
         }
     }
 
-
-    // constructor() {
-    //     this.addNote();
-    // }
-
     async addNote(note: IAppStorage){
-
         const res = await this.db.collection('notes').add(note);
+    }
 
+    async deleteNote(id: string){
+        const res = await this.db.collection('notes').doc(id).delete();
+    }
+
+    async pinNote(id: string, note: IAppStorage){
+        const res = await this.db.collection('notes').doc(id).update(note);
     }
 }
 
