@@ -74,10 +74,14 @@ export class Note{
                 pinned: false,
             }
 
-            fireBase.addNote(obiekt);
-            this.clearNotes();
-            this.clearPinnedNotes();
-            const app2 = new App();
+            if(obiekt.title !== ""){
+                fireBase.addNote(obiekt);
+                this.clearNotes();
+                this.clearPinnedNotes();
+                const app2 = new App();
+                this.clearForm();
+            }
+
 
         }else{
             const app = new AppStorage();
@@ -110,10 +114,10 @@ export class Note{
             this.clearNotes();
             this.clearPinnedNotes();
             const app2 = new App();
+            this.clearForm();
         }
 
 
-        this.clearForm();
     }
 
     clearForm(){

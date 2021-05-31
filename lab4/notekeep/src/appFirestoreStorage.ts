@@ -10,27 +10,29 @@ export class AppFirestoreStorage{
 
         if (!firebase.apps.length) {
             this.firebaseApp = firebase.initializeApp(firebaseConfig);
-            this.db = this.firebaseApp.firestore();
+
         }else{
             this.firebaseApp = firebase.app();
-            this.db = this.firebaseApp.firestore();
+
         }
+        this.db = this.firebaseApp.firestore();
     }
 
     async addNote(note: IAppStorage){
-        const res = await this.db.collection('notes').add(note);
+        await this.db.collection('notes').add(note);
+        console.log('dupa');
     }
 
     async deleteNote(id: string){
-        const res = await this.db.collection('notes').doc(id).delete();
+        await this.db.collection('notes').doc(id).delete();
     }
 
     async pinNote(id: string, note: IAppStorage){
-        const res = await this.db.collection('notes').doc(id).update(note);
+        await this.db.collection('notes').doc(id).update(note);
     }
 
     async getNote(id: string){
-        const obj = this.db.collection('notes').doc(id).get().then((res: any) => res.data());
+        const obj = await this.db.collection('notes').doc(id).get().then((res: any) => res.data());
         return obj;
     }
 

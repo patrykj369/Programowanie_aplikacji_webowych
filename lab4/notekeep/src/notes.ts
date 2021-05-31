@@ -16,7 +16,7 @@ export class Notes{
         if(switchAppMode){
             const data = new AppFirestoreStorage();
             const allData = await data.getNotes();
-            //console.log(allData);
+            console.log(allData);
 
             try{
                 allData.map((x:any)=> {
@@ -36,7 +36,7 @@ export class Notes{
                 buttonPin.addEventListener("click", async (e: any) => {
                     const idPin = ((e.target as Element).id).replace('pin_', '');
                     const noteFromFirebase = await data.getNote(idPin);
-                    
+
                     if(noteFromFirebase.pinned){
                         noteFromFirebase.pinned = false;
                         await data.pinNote(idPin, noteFromFirebase);
@@ -48,11 +48,11 @@ export class Notes{
                         btn.classList.remove("buttonPinPress");
                         btn.classList.add("buttonPin");
 
-                        const note = new Note;
+                        const note = await new Note;
                         note.clearNotes();
                         note.clearPinnedNotes();
 
-                        const app = new App();
+
 
                     }else{
                         noteFromFirebase.pinned = true;
@@ -64,13 +64,13 @@ export class Notes{
                         const btn = document.getElementById("pin_"+idPin);
                         btn.classList.remove("buttonPin");
                         btn.classList.add("buttonPinPress");
-                        
+
                         const note = new Note;
                         note.clearNotes();
                         note.clearPinnedNotes();
-
-                        const app = new App();
                     }
+
+                    const app = new App();
                 })
 
                 const h1 = document.createElement("h1");
