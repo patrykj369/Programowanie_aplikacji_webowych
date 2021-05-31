@@ -29,6 +29,11 @@ export class AppFirestoreStorage{
         const res = await this.db.collection('notes').doc(id).update(note);
     }
 
+    async getNote(id: string){
+        const obj = this.db.collection('notes').doc(id).get().then((res: any) => res.data());
+        return obj;
+    }
+
     async getNotes(){
 
         const collection = await this.db.collection('notes').get().then((res: any) => ({size: res.size, docs: res.docs}));

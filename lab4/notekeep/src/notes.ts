@@ -34,7 +34,43 @@ export class Notes{
                 buttonPin.id = "pin_"+x.id;
 
                 buttonPin.addEventListener("click", async (e: any) => {
+                    const idPin = ((e.target as Element).id).replace('pin_', '');
+                    const noteFromFirebase = await data.getNote(idPin);
+                    
+                    if(noteFromFirebase.pinned){
+                        noteFromFirebase.pinned = false;
+                        await data.pinNote(idPin, noteFromFirebase);
+                        const elem = document.getElementById("note_"+idPin);
+                        const elemDestination = document.getElementById("notesListID");
+                        elemDestination.appendChild(elem);
 
+                        const btn = document.getElementById("pin_"+idPin);
+                        btn.classList.remove("buttonPinPress");
+                        btn.classList.add("buttonPin");
+
+                        const note = new Note;
+                        note.clearNotes();
+                        note.clearPinnedNotes();
+
+                        const app = new App();
+
+                    }else{
+                        noteFromFirebase.pinned = true;
+                        await data.pinNote(idPin, noteFromFirebase);
+                        const elem = document.getElementById("note_"+idPin);
+                        const elemDestination = document.getElementById("notesListID");
+                        elemDestination.appendChild(elem);
+
+                        const btn = document.getElementById("pin_"+idPin);
+                        btn.classList.remove("buttonPin");
+                        btn.classList.add("buttonPinPress");
+                        
+                        const note = new Note;
+                        note.clearNotes();
+                        note.clearPinnedNotes();
+
+                        const app = new App();
+                    }
                 })
 
                 const h1 = document.createElement("h1");
@@ -62,10 +98,10 @@ export class Notes{
                     await data.deleteNote(x);
 
                     const note = new Note;
-                    
+
                     note.clearNotes();
                     note.clearPinnedNotes();
-                    
+
 
                     const app = new App();
                 })
@@ -88,7 +124,7 @@ export class Notes{
 
                 if(x.data.pinned){
                     notesPinnedId.appendChild(noteDiv);
-                    const btn = document.getElementById("pin"+x.id);
+                    const btn = document.getElementById("pin_"+x.id);
                     btn.classList.remove("buttonPin");
                     btn.classList.add("buttonPinPress");
                 }else{
