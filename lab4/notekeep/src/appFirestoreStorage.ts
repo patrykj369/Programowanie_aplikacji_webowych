@@ -28,6 +28,14 @@ export class AppFirestoreStorage{
     async pinNote(id: string, note: IAppStorage){
         const res = await this.db.collection('notes').doc(id).update(note);
     }
+
+    async getNotes(){
+
+        const collection = await this.db.collection('notes').get().then((res: any) => ({size: res.size, docs: res.docs}));
+
+        return collection.docs.map((doc: any) => ({id: doc.id, data: doc.data()}));
+
+    }
 }
 
 

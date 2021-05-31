@@ -1,18 +1,13 @@
 import {Note} from './note';
 import {Notes} from './notes';
-import {AppFirestoreStorage} from './appFirestoreStorage';
+//import {AppFirestoreStorage} from './appFirestoreStorage';
 import {switchAppMode} from './config';
 
 export class App {
 
     constructor() {
         this.addNewNote();
-        if(switchAppMode){
-            this.getNotesFromFirebase();
-        }else{
-            this.getNotes();
-        }
-
+        this.getNotes();
     }
 
     //metoda do wyszukiwania z inputu
@@ -30,11 +25,12 @@ export class App {
     async getNotes(){
         const tmp = new Notes();
         tmp.getNotesContent();
+
     }
 
-    async getNotesFromFirebase(){
-        //const res = new AppFirestoreStorage();
-       // res.addNote();
-    }
+    // async getNotesFromFirebase(){
+    //     const res = new AppFirestoreStorage();
+    //     res.getNotes().then((res: any) => console.log(res));
+    // }
 
 }
