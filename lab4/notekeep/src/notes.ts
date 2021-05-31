@@ -16,7 +16,7 @@ export class Notes{
         if(switchAppMode){
             const data = new AppFirestoreStorage();
             const allData = await data.getNotes();
-            console.log(allData);
+            //console.log(allData);
 
             try{
                 allData.map((x:any)=> {
@@ -54,11 +54,20 @@ export class Notes{
 
                 const buttonRemove = document.createElement("button");
                 buttonRemove.classList.add("button");
-                buttonRemove.id = "remove"+x.id;
+                buttonRemove.id = "remove_"+x.id;
                 buttonRemove.textContent = "REMOVE";
 
                 buttonRemove.addEventListener("click", async (e) =>{
+                    const x = ((e.target as Element).id).replace('remove_', '');
+                    await data.deleteNote(x);
 
+                    const note = new Note;
+                    
+                    note.clearNotes();
+                    note.clearPinnedNotes();
+                    
+
+                    const app = new App();
                 })
 
                 noteDiv.appendChild(topBarDiv);
@@ -242,7 +251,21 @@ export class Notes{
 
     async getAllNotesNumber(){
         if(switchAppMode){
+            const data = new AppFirestoreStorage();
+            const allData = await data.getNotes();
+            const elem = document.getElementById("allNotesCount");
 
+            try{
+                const x = (allData.length).toString();
+                if(x === '1'){
+                    elem.innerHTML = x + " note";
+                }else{
+                    elem.innerHTML = x + " notes";
+                }
+
+            }catch(e){
+
+            }
         }else{
             const data = new AppStorage();
             const elem = document.getElementById("allNotesCount");

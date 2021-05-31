@@ -77,6 +77,7 @@ export class Note{
             fireBase.addNote(obiekt);
             this.clearNotes();
             this.clearPinnedNotes();
+            const app2 = new App();
 
         }else{
             const app = new AppStorage();
