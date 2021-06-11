@@ -20,7 +20,6 @@ export class AppFirestoreStorage{
 
     async addNote(note: IAppStorage){
         await this.db.collection('notes').add(note);
-        console.log('dupa');
     }
 
     async deleteNote(id: string){

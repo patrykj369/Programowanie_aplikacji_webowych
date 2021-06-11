@@ -141,7 +141,6 @@ export class Note{
     clearNotes(){
         const notes = document.getElementById("notesListID");
         notes.innerHTML = "";
-        //console.log(notes);
     }
 
     clearPinnedNotes(){
