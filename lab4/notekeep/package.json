@@ -25,6 +25,7 @@
   "dependencies": {
     "file-loader": "^6.2.0",
     "firebase": "^8.6.3",
+    "jest": "^27.0.4",
     "node-sass": "^4.14.0",
     "url-loader": "^4.1.1"
   }
