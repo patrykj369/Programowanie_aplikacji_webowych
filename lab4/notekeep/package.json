@@ -23,10 +23,12 @@
     "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
+    "@types/jest": "^26.0.23",
     "file-loader": "^6.2.0",
     "firebase": "^8.6.3",
     "jest": "^27.0.4",
     "node-sass": "^4.14.0",
+    "ts-jest": "^27.0.3",
     "url-loader": "^4.1.1"
   }
 }
