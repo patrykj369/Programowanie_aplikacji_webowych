@@ -20,14 +20,25 @@ export class AppFirestoreStorage{
 
     async addNote(note: IAppStorage){
         await this.db.collection('notes').add(note);
+        const obj = "dodano " + note;
+        return  obj;
     }
 
     async deleteNote(id: string){
         await this.db.collection('notes').doc(id).delete();
+        const obj = "usunieto id: " + id;
+        return  obj;
     }
 
     async pinNote(id: string, note: IAppStorage){
-        await this.db.collection('notes').doc(id).update(note);
+        try{
+            await this.db.collection('notes').doc(id).update(note);
+        }catch(e){
+            console.log(e);
+        }
+
+        const obj = "przypieto " + id;
+        return  obj;
     }
 
     async getNote(id: string){
