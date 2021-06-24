@@ -44,6 +44,7 @@ export class AppFirestoreStorage{
     async getNote(id: string){
         const obj = await this.db.collection('notes').doc(id).get().then((res: any) => res.data());
         return obj;
+
     }
 
     async getNotes(){

@@ -2,7 +2,7 @@ import {AppFirestoreStorage} from '../src/appFirestoreStorage';
 import { IAppStorage } from '../src/interfaces/IAppStorage';
 
 
-describe('addNote',  () =>{
+describe('notes',  () =>{
 
     const note: IAppStorage = {
         id: 1,
@@ -15,47 +15,46 @@ describe('addNote',  () =>{
 
     const appFirestore = new AppFirestoreStorage();
 
-    it('test1', async () => {
+    it('addNote', async () => {
 
         const returnNote = await appFirestore.addNote(note);
         const myNote = "dodano " + note;
 
         expect(returnNote).toBe(myNote);
     })
-})
 
-describe('deleteNote',  () =>{
-
-    const appFirestore = new AppFirestoreStorage();
-
-    it('test1', async () => {
+    it('deleteNote', async () => {
         const id = "1";
         const returnNote = await appFirestore.deleteNote(id);
         const myNote = "usunieto id: " + id;
 
         expect(returnNote).toBe(myNote);
     })
-})
 
-describe('pinNote',  () =>{
-
-    const note: IAppStorage = {
-        id: 1,
-        title: "Test notatki",
-        content: "Content test notatki",
-        color_note: "pink",
-        date_note: new Date().toDateString(),
-        pinned: false,
-    };
-
-    const appFirestore = new AppFirestoreStorage();
-
-    it('test1', async () => {
+    it('pinNote', async () => {
         const id = "1";
 
         const returnNote = await appFirestore.pinNote(id, note);
         const myNote = "przypieto " + id;
 
         expect(returnNote).toBe(myNote);
+    })
+
+    it('getNote', async () => {
+        const id = "1";
+
+        const returnNote = await appFirestore.getNote(id);
+        const myNote:any = undefined;
+
+        expect(returnNote).toBe(myNote);
+    })
+
+    it('getNotes', async () => {
+        await appFirestore.addNote(note); //dodanie notatki
+
+        const returnNote = await appFirestore.getNotes();
+        const myNote:any = undefined;
+
+        expect(returnNote.length > 0);
     })
 })
