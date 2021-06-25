@@ -3,30 +3,81 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pogodynka</title>
+    <title>Notekeep</title>
   </head>
   <body>
-    <p class="signatureBackground">Photo by Tahir Shaw from Pexels</p>
-    <button id="clearButton" class="buttonClear">Clear weather</button>
-
     <main>
+
       <section class="searchInput" id="searchInputID">
-        <input id="searchInp" type="text" placeholder="Search weather for city..."/>
+        <input id="searchInp" type="text" placeholder="SEARCH NOTE"/>
         <input id="buttonInp" type="button"/>
       </section>
 
-      <section class="weatherBlocks" id="weatherBlocksID">
+      <section class="content">
+        <div class="topBar">
+          <h1>My Notes</h1>
+          <h3 id="allNotesCount">0 notes</h3>
+          <div class="addNoteDiv">
+            <button id="addNoteButton" class="button">ADD NOTE</button>
+          </div>
+        </div>
+        <div class="pinnedNotes" id="notesPinnedID">
+
+
+        </div>
+        <div class="notesList" id="notesListID">
+
+          <!-- <div class="notesContent">
+            <div class="topBarNotes">
+              <button class="buttonPin"></button>
+              <h1>Tytuł notatki bedzie tu wpisany </h1>
+              <p>01/05/2021</p>
+            </div>
+            <div class="contentDivNotes">
+              <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                Itaque facilis saepe dignissimos hic at praesentium esse debitis.
+              </p>
+            </div>
+            <div class="footerNotes">
+              <button class="button">REMOVE</button>
+            </div>
+          </div> -->
+
+        </div>
       </section>
     </main>
 
     <div id="myModal" class="modal">
       <div id="inModal" class="modal-content">
-        <span id="spanFirst" class="close">&times;</span>
-        <h3>12-hours weather</h3>
-      <div id="modal1">
+          <span id="spanFirst" class="close">&times;</span>
+          <h1>Add new note</h1>
+        <div id="modal1">
+          <p>Title (max. 40 chars)</p>
+          <input id="titleInp" type="text" class="inputTitle">
+          <p>Content (max. 500 chars)</p>
+          <textarea id="contentInp" class="inputContent" rows="10"></textarea>
+          <p>Note color</p>
+          <div class="checkboxList">
+            <div id="btn_yellow" class="btn_color">
+              <input type="checkbox" class="checkbox" id="btn_yellow_click">
+            </div>
+            <div id="btn_green" class="btn_color">
+              <input type="checkbox" class="checkbox" id="btn_green_click">
+            </div>
+            <div id="btn_red" class="btn_color">
+              <input type="checkbox" class="checkbox" id="btn_red_click">
+            </div>
+            <div id="btn_pink" class="btn_color">
+              <input type="checkbox" class="checkbox" id="btn_pink_click">
+            </div>
+            <div id="btn_blue" class="btn_color">
+              <input type="checkbox" class="checkbox" id="btn_blue_click">
+            </div>
+          </div>
 
-      </div>
+          <button id="buttonSaveNote" class="button btn_save">SAVE NOTE</button>
 
+        </div>
       </div>
     </div>
 
