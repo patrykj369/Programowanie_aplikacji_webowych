@@ -17,7 +17,7 @@ import * as puppeteer from 'puppeteer';
   await page.goto('http://localhost:8080/');
   await page.waitForSelector('#addNoteButton')
   await page.click('#addNoteButton')
-  // await page.type('#mat-input-0', 'user');
+  await page.type('#mat-input-0', 'user');
   // await page.type('#mat-input-1', 'password');
   // await page.click('someButtonSelector')
   await page.waitFor(2000); // nie stosować bez wyraźnej potrzeby!
