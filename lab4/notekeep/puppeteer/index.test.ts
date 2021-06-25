@@ -11,16 +11,19 @@ import * as puppeteer from 'puppeteer';
 
 (async () => {
   // const browser = await puppeteer.launch(); // headless
-  const browser = await puppeteer.launch({ headless: false, slowMo: 30 })
+  const browser = await puppeteer.launch({ headless: false, slowMo: 130 })
   const page = await browser.newPage();
-  // await page.setViewport({ width: 1280, height: 800 })
+  await page.setViewport({ width: 1920, height: 1080 })
   await page.goto('http://localhost:8080/');
   await page.waitForSelector('#addNoteButton')
   await page.click('#addNoteButton')
-  await page.type('#mat-input-0', 'user');
+  await page.type('#titleInp', 'Testowa notatka puppeteer');
+  await page.type('#contentInp', 'Testowa notatka puppeteer');
+  await page.click('#buttonSaveNote')
   // await page.type('#mat-input-1', 'password');
   // await page.click('someButtonSelector')
   await page.waitFor(2000); // nie stosować bez wyraźnej potrzeby!
-  //await page.screenshot({path: 'screen-after-wait.png'});
+  await page.screenshot({path: 'screen-after-saveNote.png'});
+  await page.waitFor(2000);
   await browser.close();
 })();

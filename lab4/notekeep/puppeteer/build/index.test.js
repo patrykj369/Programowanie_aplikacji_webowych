@@ -48,40 +48,51 @@ var puppeteer = require("puppeteer");
     var browser, page;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, puppeteer.launch({ headless: false, slowMo: 30 })];
+            case 0: return [4 /*yield*/, puppeteer.launch({ headless: false, slowMo: 130 })];
             case 1:
                 browser = _a.sent();
                 return [4 /*yield*/, browser.newPage()];
             case 2:
                 page = _a.sent();
-                // await page.setViewport({ width: 1280, height: 800 })
-                return [4 /*yield*/, page.goto('http://localhost:8080/')];
+                return [4 /*yield*/, page.setViewport({ width: 1920, height: 1080 })];
             case 3:
-                // await page.setViewport({ width: 1280, height: 800 })
                 _a.sent();
-                return [4 /*yield*/, page.waitForSelector('#addNoteButton')];
+                return [4 /*yield*/, page.goto('http://localhost:8080/')];
             case 4:
                 _a.sent();
-                return [4 /*yield*/, page.click('#addNoteButton')
-                    // await page.type('#mat-input-0', 'user');
+                return [4 /*yield*/, page.waitForSelector('#addNoteButton')];
+            case 5:
+                _a.sent();
+                return [4 /*yield*/, page.click('#addNoteButton')];
+            case 6:
+                _a.sent();
+                return [4 /*yield*/, page.type('#titleInp', 'Testowa notatka puppeteer')];
+            case 7:
+                _a.sent();
+                return [4 /*yield*/, page.type('#contentInp', 'Testowa notatka puppeteer')];
+            case 8:
+                _a.sent();
+                return [4 /*yield*/, page.click('#buttonSaveNote')
                     // await page.type('#mat-input-1', 'password');
                     // await page.click('someButtonSelector')
                 ];
-            case 5:
+            case 9:
                 _a.sent();
-                // await page.type('#mat-input-0', 'user');
                 // await page.type('#mat-input-1', 'password');
                 // await page.click('someButtonSelector')
                 return [4 /*yield*/, page.waitFor(2000)];
-            case 6:
-                // await page.type('#mat-input-0', 'user');
+            case 10:
                 // await page.type('#mat-input-1', 'password');
                 // await page.click('someButtonSelector')
                 _a.sent(); // nie stosować bez wyraźnej potrzeby!
-                //await page.screenshot({path: 'screen-after-wait.png'});
+                return [4 /*yield*/, page.screenshot({ path: 'screen-after-saveNote.png' })];
+            case 11:
+                _a.sent();
+                return [4 /*yield*/, page.waitFor(2000)];
+            case 12:
+                _a.sent();
                 return [4 /*yield*/, browser.close()];
-            case 7:
-                //await page.screenshot({path: 'screen-after-wait.png'});
+            case 13:
                 _a.sent();
                 return [2 /*return*/];
         }
