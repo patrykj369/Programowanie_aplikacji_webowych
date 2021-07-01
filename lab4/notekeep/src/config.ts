@@ -9,4 +9,4 @@ export const firebaseConfig = {
 
 
 //true -> firebase, false -> localstorage
-export const switchAppMode: boolean = true;
+export const switchAppMode: boolean = false;
